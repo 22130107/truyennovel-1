@@ -73,7 +73,7 @@ export default function LoginPage() {
                 onChange={(e) => setIdentifier(e.target.value)}
                 placeholder="Ví dụ: nguyenvana hoặc email@gmail.com"
                 required
-                className="w-full bg-white border-3 border-pink rounded-xl px-4 py-3 text-black focus:border-pink focus:ring-1 focus:ring-pink focus:outline-none transition-all"
+                className="w-full bg-white border-2 border-pink rounded-xl px-4 py-3 text-black focus:border-pink focus:ring-1 focus:ring-pink focus:outline-none transition-all"
               />
             </div>
             
@@ -88,7 +88,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full bg-white border-3 border-pink rounded-xl px-4 py-3 text-black focus:border-pink focus:ring-1 focus:ring-pink focus:outline-none transition-all"
+                className="w-full bg-white border-2 border-pink rounded-xl px-4 py-3 text-black focus:border-pink focus:ring-1 focus:ring-pink focus:outline-none transition-all"
               />
             </div>
 

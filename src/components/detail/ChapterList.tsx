@@ -40,7 +40,7 @@ export function ChapterList({ chapters }: ChapterListProps) {
       </div>
 
       <div className="overflow-auto max-h-[598.5px] custom-scrollbar">
-        <div className="border-3 bg-white border-pink shadow-xl rounded-lg">
+        <div className="border-2 bg-white border-pink shadow-xl rounded-lg">
           {sorted.length === 0 ? (
             <div className="p-8 text-center text-black text-sm">Chưa có chương nào</div>
           ) : (

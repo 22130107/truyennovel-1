@@ -202,7 +202,7 @@ export default function NovelDetailClient() {
                         {reviews.length > 0 && (
                           <div className="space-y-3 max-w-sm ml-auto mr-auto">
                             {reviews.map((review, i) => (
-                              <div key={i} className="bg-white border-3 border-pink rounded-lg p-4">
+                              <div key={i} className="bg-white border-2 border-pink rounded-lg p-4">
                                 <div className="flex items-center justify-between mb-2">
                                   <div className="flex items-center gap-2">
                                     <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-700 uppercase">

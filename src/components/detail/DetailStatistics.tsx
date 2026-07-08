@@ -10,7 +10,7 @@ interface DetailStatisticsProps {
 
 export function DetailStatistics({ views, likes, follows, lastUpdate }: DetailStatisticsProps) {
   return (
-    <div className="grid mt-[24px] bg-white gap-[16px] p-4 rounded-lg border-3 border-pink" style={{"gridTemplateColumns":"repeat(auto-fit, minmax(100px, 1fr))"}}>
+    <div className="grid mt-[24px] bg-white gap-[16px] p-4 rounded-lg border-2 border-pink" style={{"gridTemplateColumns":"repeat(auto-fit, minmax(100px, 1fr))"}}>
       <div className="text-center" style={{"gridArea":"1 / 1 / 2 / 2"}}>
         <div className="font-semibold text-center">{views}</div>
         <div className="text-center text-muted text-[14px] leading-[20px]">Lượt xem</div>

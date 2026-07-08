@@ -127,7 +127,7 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
   };
 
   return (
-    <header className="fixed left-0 top-0 right-0 bg-white/90 backdrop-blur-md border-b-[3px] border-pink z-[50] py-1">
+    <header className="fixed left-0 top-0 right-0 bg-white/90 backdrop-blur-md border-b-[2px] border-pink z-[50] py-1">
       <div className="w-full px-4 lg:px-8">
         <div className="items-center flex justify-between">
           {/* Logo */}
@@ -138,7 +138,7 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
           </div>
 
           {/* Chapter info */}
-          <div className="flex items-center text-black text-[12px] md:text-[15px] font-medium bg-black/5 px-3 md:px-4 py-1.5 rounded-full border-3 border-pink mx-2 overflow-hidden">
+          <div className="flex items-center text-black text-[12px] md:text-[15px] font-medium bg-black/5 px-3 md:px-4 py-1.5 rounded-full border-2 border-pink mx-2 overflow-hidden">
             <span className="text-pink shrink-0">Chương {chapterNumber}</span>
             <span className="hidden md:inline mx-3 text-black">|</span>
             <span className="hidden md:inline text-black truncate max-w-[200px] lg:max-w-[300px]">{chapterTitle}</span>
@@ -183,7 +183,7 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
               </button>
 
               {showRating && (
-                <div className="absolute top-full right-0 mt-2 bg-white border-3 border-pink rounded-xl shadow-2xl p-3 z-50">
+                <div className="absolute top-full right-0 mt-2 bg-white border-2 border-pink rounded-xl shadow-2xl p-3 z-50">
                   <p className="text-xs text-black mb-2 text-center whitespace-nowrap">
                     {userRating ? `Đánh giá của bạn: ${userRating}★` : "Chọn số sao"}
                   </p>

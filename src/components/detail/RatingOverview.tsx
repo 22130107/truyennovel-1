@@ -47,7 +47,7 @@ export function RatingOverview({ averageRating, totalRatings, distribution }: Ra
       </div>
 
       {/* Tổng quan */}
-      <div className="border-3 mb-[16px] bg-white border-pink shadow-2xl p-6 rounded-lg">
+      <div className="border-2 mb-[16px] bg-white border-pink shadow-2xl p-6 rounded-lg">
         <div className="items-center flex mb-[24px]">
           <div className="items-center flex flex-col">
             <span className="block font-bold text-pink text-[48px] leading-[48px]">{averageRating.toFixed(1)}</span>

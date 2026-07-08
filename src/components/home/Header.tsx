@@ -106,7 +106,7 @@ export function Header() {
                 </button>
                 
                 <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-[60]">
-                  <div className="bg-white border-3 border-pink rounded-xl shadow-2xl p-6 w-[700px]">
+                  <div className="bg-white border-2 border-pink rounded-xl shadow-2xl p-6 w-[700px]">
                     <div className="grid grid-cols-4 gap-x-8 gap-y-3">
                       {genres.map((genre) => (
                         <Link key={genre} 
@@ -153,7 +153,7 @@ export function Header() {
 
                   {/* Dropdown Kết quả */}
                   {showDropdown && searchQuery.trim() && (
-                    <div className="absolute top-full mt-2 w-full xl:w-[350px] right-0 bg-white border-3 border-pink rounded-lg shadow-2xl overflow-hidden z-[9999]">
+                    <div className="absolute top-full mt-2 w-full xl:w-[350px] right-0 bg-white border-2 border-pink rounded-lg shadow-2xl overflow-hidden z-[9999]">
                       {isSearching ? (
                         <div className="p-4 text-center text-black text-sm">Đang tìm kiếm...</div>
                       ) : searchResults.length > 0 ? (
@@ -211,7 +211,7 @@ export function Header() {
                   >
                     <img 
                       src="/logo.png" 
-                      className="w-10 h-10 rounded-full border-[3px] border-pink" 
+                      className="w-10 h-10 rounded-full border-[2px] border-pink" 
                       alt="User" 
                     />
                   </button>
@@ -220,9 +220,9 @@ export function Header() {
                       isUserMenuOpen ? "opacity-100 visible translate-y-0" : ""
                     }`}
                   >
-                    <div className="bg-white border-3 border-pink rounded-lg shadow-2xl w-64 overflow-hidden">
+                    <div className="bg-white border-2 border-pink rounded-lg shadow-2xl w-64 overflow-hidden">
                       {/* User Info Section */}
-                      <div className="p-4 border-b-[3px] border-pink">
+                      <div className="p-4 border-b-[2px] border-pink">
                         <div className="font-bold text-black text-lg">{user ? (user.name || user.username) : 'Người dùng'}</div>
                         <div className="text-black text-xs truncate">{user ? user.email : ''}</div>
                       </div>
@@ -264,7 +264,7 @@ export function Header() {
                       </div>
                       
                       {/* Logout */}
-                      <div className="p-2 border-t-[3px] border-pink">
+                      <div className="p-2 border-t-[2px] border-pink">
                         <button
                           onClick={() => { setIsUserMenuOpen(false); handleLogout(); }}
                           className="flex items-center gap-4 w-full px-3 py-2.5 text-red-500 hover:bg-red-500/10 rounded-md transition-colors"
@@ -303,7 +303,7 @@ export function Header() {
           className={`absolute inset-y-0 left-0 w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
           <div className="flex flex-col h-full">
-            <div className="p-6 border-b-[3px] border-pink flex justify-between items-center bg-white">
+            <div className="p-6 border-b-[2px] border-pink flex justify-between items-center bg-white">
               <Logo size="md" />
               <button 
                 onClick={() => setIsMobileMenuOpen(false)} 
@@ -368,7 +368,7 @@ export function Header() {
               </div>
             </div>
             
-            <div className="p-6 border-t-[3px] border-pink bg-white">
+            <div className="p-6 border-t-[2px] border-pink bg-white">
               <a
                 href="https://www.facebook.com/share/1UFcSHCMsM/"
                 target="_blank"

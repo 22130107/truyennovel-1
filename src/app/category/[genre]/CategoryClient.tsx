@@ -77,7 +77,7 @@ export default function CategoryClient() {
 
         {/* Filters */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-          <div className="flex items-center gap-1 bg-white border-3 border-pink rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-white border-2 border-pink rounded-lg p-1">
             {STATUS_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
@@ -96,7 +96,7 @@ export default function CategoryClient() {
             <select
               value={sort}
               onChange={(e) => { setSort(e.target.value); fetchNovels(e.target.value, status); }}
-              className="bg-white border-3 border-pink text-black text-sm px-3 py-2 rounded-lg focus:outline-none focus:border-pink transition-colors cursor-pointer"
+              className="bg-white border-2 border-pink text-black text-sm px-3 py-2 rounded-lg focus:outline-none focus:border-pink transition-colors cursor-pointer"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>

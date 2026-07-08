@@ -128,7 +128,7 @@ export function CommentSection({ novelId, chapterNumber }: CommentSectionProps) 
               onKeyDown={(e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) handleSubmit(); }}
               placeholder={currentUser ? "Viết bình luận của bạn... (Ctrl+Enter để gửi)" : "Đăng nhập để bình luận"}
               disabled={!currentUser || submitting}
-              className="w-full bg-white border-3 border-pink text-black text-[14px] leading-[20px] px-3 py-2.5 rounded-xl resize-none focus:outline-none focus:border-pink transition-colors disabled:opacity-50 placeholder:text-black"
+              className="w-full bg-white border-2 border-pink text-black text-[14px] leading-[20px] px-3 py-2.5 rounded-xl resize-none focus:outline-none focus:border-pink transition-colors disabled:opacity-50 placeholder:text-black"
             />
             {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
             <div className="flex justify-end mt-2">

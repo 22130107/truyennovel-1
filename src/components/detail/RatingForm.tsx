@@ -81,7 +81,7 @@ export function RatingForm({ novelId, onRated }: RatingFormProps) {
       <div className="items-center flex h-9 mb-[24px]">
         <h2 className="font-semibold text-[24px] leading-[32px]">Đánh giá của bạn</h2>
       </div>
-      <div className="border-3 bg-white border-pink shadow-2xl p-6 rounded-lg">
+      <div className="border-2 bg-white border-pink shadow-2xl p-6 rounded-lg">
 
         {/* Stars */}
         <label className="block font-medium mb-[8px] text-[14px] leading-[20px]">Đánh giá</label>
@@ -114,7 +114,7 @@ export function RatingForm({ novelId, onRated }: RatingFormProps) {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Chia sẻ cảm nhận của bạn..."
-          className="flex overflow-auto resize-none whitespace-pre-wrap w-full bg-gray-100 text-gray-800 text-[14px] leading-[20px] min-h-20 pt-2 pr-3 pb-2 pl-3 rounded-md border-3 border-pink focus:border-pink focus:outline-none transition-colors mb-4"
+          className="flex overflow-auto resize-none whitespace-pre-wrap w-full bg-gray-100 text-gray-800 text-[14px] leading-[20px] min-h-20 pt-2 pr-3 pb-2 pl-3 rounded-md border-2 border-pink focus:border-pink focus:outline-none transition-colors mb-4"
         />
 
         {/* Message */}

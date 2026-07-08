@@ -108,7 +108,7 @@ export function ChapterSelector({ currentChapter, nextChapter: nextChapterProp }
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen((v) => !v)}
-            className="items-center border-3 flex justify-between w-40 md:w-48 h-10 bg-white border-pink text-[13px] md:text-[14px] px-3 md:px-4 rounded-md hover:border-pink transition-colors"
+            className="items-center border-2 flex justify-between w-40 md:w-48 h-10 bg-white border-pink text-[13px] md:text-[14px] px-3 md:px-4 rounded-md hover:border-pink transition-colors"
           >
             <span className="font-medium text-black">Chương {currentChapter}</span>
             <svg
@@ -122,7 +122,7 @@ export function ChapterSelector({ currentChapter, nextChapter: nextChapterProp }
           </button>
 
           {isOpen && (
-            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 bg-white border-3 border-pink rounded-xl shadow-2xl z-50 overflow-hidden">
+            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 bg-white border-2 border-pink rounded-xl shadow-2xl z-50 overflow-hidden">
               {loading ? (
                 <div className="py-6 text-center text-sm text-black">Đang tải...</div>
               ) : chapters.length === 0 ? (

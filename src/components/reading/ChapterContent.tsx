@@ -63,7 +63,7 @@ export function ChapterContent({
 
   return (
     <div
-      className="border-3 bg-white border-pink shadow-2xl p-4 md:p-6 rounded-xl select-none overflow-x-hidden"
+      className="border-2 bg-white border-pink shadow-2xl p-4 md:p-6 rounded-xl select-none overflow-x-hidden"
       onCopy={handlePreventCopy}
       onCut={handlePreventCopy}
       onContextMenu={handlePreventCopy}

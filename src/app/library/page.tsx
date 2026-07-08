@@ -160,7 +160,7 @@ export default function LibraryPage() {
               const continueChapter = book.lastChapter || 1;
 
               return (
-                <div key={book.id} className="group bg-white border-3 border-pink rounded-xl overflow-hidden hover:border-pink/70 transition-all hover:shadow-2xl">
+                <div key={book.id} className="group bg-white border-2 border-pink rounded-xl overflow-hidden hover:border-pink/70 transition-all hover:shadow-2xl">
                   {/* Cover */}
                   <Link href={`/novel/${book.slug || book.id}/${continueChapter}`}>
                     <div className="relative aspect-video overflow-hidden">
@@ -225,7 +225,7 @@ export default function LibraryPage() {
                             value={book.libStatus}
                             onChange={(e) => handleStatusChange(book.id, e.target.value)}
                             onClick={(e) => e.stopPropagation()}
-                            className="text-[11px] bg-gray-200 border-3 border-pink text-black rounded-lg px-2 py-1 cursor-pointer hover:border-pink/70 transition-colors"
+                            className="text-[11px] bg-gray-200 border-2 border-pink text-black rounded-lg px-2 py-1 cursor-pointer hover:border-pink/70 transition-colors"
                           >
                             <option value="READING">Đang đọc</option>
                             <option value="COMPLETED">Hoàn thành</option>

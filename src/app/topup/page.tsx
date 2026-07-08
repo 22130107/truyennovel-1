@@ -245,7 +245,7 @@ export default function TopupPage() {
         {/* QR Payment Modal */}
         {(status === "pending" || status === "completed" || status === "failed" || status === "cancelled") && paymentInfo && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-site/80 backdrop-blur-sm px-4">
-            <div className="bg-white border-3 border-pink rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <div className="bg-white border-2 border-pink rounded-2xl p-6 w-full max-w-md shadow-2xl">
 
               {/* PENDING: hiển thị QR */}
               {status === "pending" && (
@@ -385,7 +385,7 @@ export default function TopupPage() {
             <div
               key={pkg.id}
               className={`relative bg-white border rounded-2xl p-6 transition-all hover:translate-y-[-4px] shadow-xl ${
-                pkg.popular ? "border-3 border-pink ring-1 ring-pink" : "border-3 border-pink"
+                pkg.popular ? "border-2 border-pink ring-1 ring-pink" : "border-2 border-pink"
               }`}
             >
               {pkg.popular && (
@@ -439,7 +439,7 @@ export default function TopupPage() {
         </div>
 
         {/* Hướng dẫn thanh toán */}
-        <div className="bg-white border-3 border-pink rounded-2xl p-8 shadow-2xl mb-8">
+        <div className="bg-white border-2 border-pink rounded-2xl p-8 shadow-2xl mb-8">
           <h2 className="text-xl font-bold mb-4">Hướng dẫn nạp xu qua chuyển khoản</h2>
           <ol className="space-y-4 text-sm text-black">
             <li className="flex gap-3 items-start">
@@ -474,7 +474,7 @@ export default function TopupPage() {
         </div>
 
         {/* Missions Section */}
-        <div className="bg-white border-3 border-pink rounded-2xl p-8 shadow-2xl">
+        <div className="bg-white border-2 border-pink rounded-2xl p-8 shadow-2xl">
           <h2 className="text-xl font-bold mb-6">Nhiệm vụ nhận xu</h2>
           <p className="text-muted text-sm mb-8 italic">Bạn sẽ nhận được xu khi thực hiện các nhiệm vụ sau</p>
 

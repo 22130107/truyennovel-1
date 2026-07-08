@@ -30,7 +30,7 @@ export function SettingsPopup({ isOpen, onClose, settings, onChange }: SettingsP
   return (
     <div
       ref={ref}
-      className="fixed top-16 right-4 md:right-8 w-72 bg-white border-3 border-pink shadow-2xl rounded-xl z-[60]"
+      className="fixed top-16 right-4 md:right-8 w-72 bg-white border-2 border-pink shadow-2xl rounded-xl z-[60]"
     >
       <div className="p-5 space-y-4">
         <h3 className="text-base font-bold text-black">Cài đặt đọc</h3>

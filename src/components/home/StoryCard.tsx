@@ -30,7 +30,7 @@ export function StoryCard({
 }: StoryCardProps) {
   return (
     <Link href={href}>
-      <div className="group border-3 overflow-hidden bg-white border-pink shadow-2xl rounded-2xl h-full flex flex-col">
+      <div className="group border-2 overflow-hidden bg-white border-pink shadow-2xl rounded-2xl h-full flex flex-col">
         <div className="overflow-hidden relative">
           <div className="relative w-full aspect-[3_/_4]">
             <img

@@ -122,7 +122,7 @@ export function HeroSection() {
               {/* CTA */}
               <Link
                 href={`/novel/${current.slug || current.id}`}
-                className="inline-block font-semibold border-pink border-[3px] py-2 px-6 rounded-full hover:bg-pink hover:text-white transition-colors text-sm md:text-base"
+                className="inline-block font-semibold border-pink border-[2px] py-2 px-6 rounded-full hover:bg-pink hover:text-white transition-colors text-sm md:text-base"
               >
                 ĐỌC NGAY
               </Link>

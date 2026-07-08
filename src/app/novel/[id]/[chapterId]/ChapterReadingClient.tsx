@@ -256,7 +256,7 @@ export default function ChapterReadingClient() {
 
             {!loading && chapter && (
               <div className="ml-auto mr-auto w-full lg:max-w-6xl pt-8 pb-8">
-                <div className="border-3 bg-white border-pink shadow-2xl p-6 rounded-xl">
+                <div className="border-2 bg-white border-pink shadow-2xl p-6 rounded-xl">
                   <ChapterSelector currentChapter={chapter.chapterNumber} nextChapter={chapter.nextChapter} />
                 </div>
               </div>
@@ -276,7 +276,7 @@ export default function ChapterReadingClient() {
           <div className="absolute inset-0 bg-site/80 backdrop-blur-sm" onClick={() => setShowModal(false)} />
 
           {/* Modal */}
-          <div className="relative bg-white border-3 border-pink rounded-2xl p-6 w-full max-w-md shadow-2xl">
+          <div className="relative bg-white border-2 border-pink rounded-2xl p-6 w-full max-w-md shadow-2xl">
             <h2 className="text-lg font-bold text-black mb-1">
               Mua chương {chapter.chapterNumber}
             </h2>

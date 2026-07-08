@@ -9,11 +9,11 @@ const STEPS: { step: number; content: React.ReactNode }[] = [
     step: 1,
     content: (
       <>
-        <Link href="/login" className="text-black font-bold border-b-[3px] border-pink hover:text-pink transition-colors">
+        <Link href="/login" className="text-black font-bold border-b-[2px] border-pink hover:text-pink transition-colors">
           Đăng nhập
         </Link>
         {" "}tài khoản. (Chưa có?{" "}
-        <Link href="/register" className="text-black font-bold border-b-[3px] border-pink hover:text-pink transition-colors">
+        <Link href="/register" className="text-black font-bold border-b-[2px] border-pink hover:text-pink transition-colors">
           Đăng ký tại đây
         </Link>)
       </>
@@ -21,14 +21,14 @@ const STEPS: { step: number; content: React.ReactNode }[] = [
   },
   {
     step: 2,
-    content: <>Nhấn vào <span className="text-black font-bold border-b-[3px] border-pink">biểu tượng User</span> góc phải header.</>,
+    content: <>Nhấn vào <span className="text-black font-bold border-b-[2px] border-pink">biểu tượng User</span> góc phải header.</>,
   },
   {
     step: 3,
     content: (
       <>
         Chọn{" "}
-        <Link href="/topup" className="text-black font-bold border-b-[3px] border-pink hover:text-pink transition-colors">
+        <Link href="/topup" className="text-black font-bold border-b-[2px] border-pink hover:text-pink transition-colors">
           Nạp xu
         </Link>.
       </>
@@ -36,15 +36,15 @@ const STEPS: { step: number; content: React.ReactNode }[] = [
   },
   {
     step: 4,
-    content: <>Chọn <span className="text-black font-bold border-b-[3px] border-pink">gói nạp</span> phù hợp.</>,
+    content: <>Chọn <span className="text-black font-bold border-b-[2px] border-pink">gói nạp</span> phù hợp.</>,
   },
   {
     step: 5,
-    content: <>Hệ thống hiển thị <span className="text-black font-bold border-b-[3px] border-pink">mã QR</span>.</>,
+    content: <>Hệ thống hiển thị <span className="text-black font-bold border-b-[2px] border-pink">mã QR</span>.</>,
   },
   {
     step: 6,
-    content: <>Quét QR và <span className="text-black font-bold border-b-[3px] border-pink">thanh toán</span>.</>,
+    content: <>Quét QR và <span className="text-black font-bold border-b-[2px] border-pink">thanh toán</span>.</>,
   },
 ];
 
@@ -68,7 +68,7 @@ export default function GuidePage() {
           </div>
 
           {/* Steps Section */}
-          <div className="bg-white border-3 border-pink rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="bg-white border-2 border-pink rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-pink/5 blur-3xl -mr-20 -mt-20 rounded-full" />
 
             <h2 className="text-2xl font-bold mb-10 flex items-center gap-3">

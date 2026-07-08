@@ -31,11 +31,11 @@ export function RankedStoryCard({
   return (
     <Link href={href} className="w-full">
       <div className="group flex flex-col w-full">
-        <div className="overflow-hidden relative w-full aspect-[2_/_3] shrink-[0]" style={{"clipPath": clipPathStyle}}>
+        <div className="overflow-hidden relative w-full aspect-[2_/_3] shrink-[0]" style={{"clipPath": clipPathStyle, filter: "drop-shadow(2px 0 0 #E91E91) drop-shadow(0 2px 0 #E91E91) drop-shadow(-2px 0 0 #E91E91) drop-shadow(0 -2px 0 #E91E91)"}}>
           <img alt={title} src={imageUrl} className="block size-full max-w-full object-cover overflow-clip absolute align-middle left-0 top-0 right-0 bottom-0 text-black/0 group-hover:scale-110 transition-transform duration-300" />
           <div className="absolute left-0 top-0 right-0 bottom-0 bg-black/40 opacity-[0]"></div>
         </div>
-        <div className="items-start flex bg-black/80 backdrop-blur-md p-2 rounded-b-xl min-h-[100px] text-white">
+        <div className="items-start flex bg-black/80 backdrop-blur-md p-2 rounded-b-xl min-h-[100px] text-white border-2 border-pink">
           <div className="items-center flex justify-center w-12 h-12 mt-[8px] mr-[8px]">
             <span className="bg-clip-text block italic font-extrabold text-black/0 text-[48px] leading-[48px]" style={{"backgroundImage":"linear-gradient(rgb(253, 224, 71), rgb(202, 138, 4))"}}>{rank}</span>
           </div>
