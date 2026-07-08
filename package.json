@@ -1,0 +1,34 @@
+{
+  "name": "truyenhot",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "bcryptjs": "^3.0.3",
+    "lucide-react": "^1.14.0",
+    "mammoth": "^1.12.0",
+    "mysql2": "^3.22.3",
+    "next": "^16.2.6",
+    "next-auth": "^4.24.14",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "recharts": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.3.0",
+    "eslint-config-next": "^16.2.6",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.2"
+  }
+}
