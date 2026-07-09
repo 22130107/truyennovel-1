@@ -22,39 +22,42 @@ export function InAppBrowserWarning() {
   if (!show) return null;
 
   const handleOpenBrowser = () => {
-    const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
-    const isAndroid = /android/i.test(ua);
-    const isIOS = /iPad|iPhone|iPod/.test(ua) && !(window as any).MSStream;
     const currentUrl = window.location.href;
     
-    if (isAndroid) {
-      // Android: Ép mở bằng Chrome thông qua Intent
-      const urlWithoutProtocol = currentUrl.replace(/^https?:\/\//i, '');
-      const intentUrl = `intent://${urlWithoutProtocol}#Intent;scheme=https;package=com.android.chrome;end`;
-      window.location.href = intentUrl;
-    } else if (isIOS) {
-      // iOS: Thử mở Chrome nếu có cài, sau đó thử trick tải file/mở tab mới để kích hoạt Safari
-      window.location.href = `googlechrome://navigate?url=${currentUrl}`;
-      
-      setTimeout(() => {
-        // Trick: tạo thẻ a target _blank đôi khi lừa được một số In-App Browser (như Zalo cũ)
-        const a = document.createElement('a');
-        a.href = currentUrl;
-        a.target = '_blank';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+    // Tạo thẻ a target _blank để lách luật một số trình duyệt nhúng
+    const a = document.createElement('a');
+    a.href = currentUrl;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 
-        // Fallback cuối cùng
+    // Fallback: Copy link và thông báo để đảm bảo an toàn tuyệt đối
+    setTimeout(() => {
+      const fallbackAlert = () => alert("Vui lòng nhấn vào biểu tượng 3 chấm (...) ở góc màn hình và chọn 'Mở bằng trình duyệt' (Open in Browser) để đọc truyện.");
+      
+      if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(currentUrl).then(() => {
-          alert("Hệ thống đã cố gắng mở trình duyệt. Nếu không tự động chuyển, đường dẫn đã được copy! Vui lòng mở Safari và dán link.");
-        }).catch(() => {
-          alert("Vui lòng nhấn vào biểu tượng 3 chấm (...) ở góc màn hình và chọn 'Mở bằng trình duyệt' (Open in Browser).");
-        });
-      }, 500);
-    } else {
-      window.open(currentUrl, '_blank');
-    }
+          alert("Hệ thống đã tự động sao chép đường dẫn web! Vui lòng thoát ra, mở Safari hoặc Chrome và dán link để đọc truyện bình thường.");
+        }).catch(fallbackAlert);
+      } else {
+        // Fallback cho HTTP (không có SSL)
+        try {
+          const textArea = document.createElement("textarea");
+          textArea.value = currentUrl;
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert("Hệ thống đã tự động sao chép đường dẫn web! Vui lòng thoát ra, mở Safari hoặc Chrome và dán link để đọc truyện bình thường.");
+        } catch (e) {
+          fallbackAlert();
+        }
+      }
+    }, 500);
   };
 
   return (
