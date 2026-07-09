@@ -229,7 +229,7 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, prevChapte
                             )}
                             {ch.isLocked && ch.isPurchased && (
                               <span className="text-[10px] font-semibold text-green-400 border border-green-400/40 rounded px-1 py-0.5 shrink-0 ml-2">
-                                Đã mua
+                                Đã mở
                               </span>
                             )}
                           </button>
