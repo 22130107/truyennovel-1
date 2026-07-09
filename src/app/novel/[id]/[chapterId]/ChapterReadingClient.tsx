@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { MousePointer2 } from "lucide-react";
 import { ReadingHeader } from "@/components/reading/ReadingHeader";
 import { SettingsPopup, ReadingSettings } from "@/components/reading/SettingsPopup";
 import { ChapterContent } from "@/components/reading/ChapterContent";
@@ -151,47 +152,41 @@ export default function ChapterReadingClient() {
 
               {/* Paywall — hiện link affiliate để mở khóa */}
               {!loading && chapter && chapter.isLocked && !chapter.isPurchased && (
-                <div className="py-8 w-full bg-white rounded-xl overflow-hidden shadow-sm">
+                <div className="py-8 w-full max-w-4xl mx-auto bg-white rounded-xl overflow-hidden shadow-sm">
                   {affiliateLinks.length > 0 ? (
                     <div className="flex flex-col items-center">
                       {affiliateLinks.map((link) => (
                         <div key={link.id} className="w-full flex flex-col items-center">
-                          <div className="px-4 text-center max-w-3xl mx-auto mb-6">
-                            <p className="text-[18px] md:text-[22px] leading-relaxed text-black">
+                          <div className="px-4 text-center max-w-3xl mx-auto mb-4 md:mb-6">
+                            <p className="text-[16px] md:text-[22px] leading-relaxed text-black">
                               Mời Quý độc giả <strong>CLICK</strong> vào <strong>liên kết hoặc ảnh</strong> bên dưới<br />
                               <strong>mở ứng dụng {link.title || 'Shopee'}</strong> để tiếp tục đọc toàn bộ chương truyện!
                             </p>
                           </div>
                           
 
-
                           <div 
                             onClick={() => handleAffiliateClick(link)}
-                            className="w-full bg-[#c9913c] p-6 md:p-12 cursor-pointer relative flex justify-center group"
+                            className="w-full bg-[#c9913c] p-4 md:p-12 cursor-pointer relative flex justify-center group"
                           >
-                            <div className="bg-[#f2f6fa] border-4 border-gray-500 rounded-lg p-8 md:p-14 shadow-xl flex flex-col items-center justify-center max-w-3xl w-full relative transition-transform duration-300 group-hover:scale-[1.02]">
-                              <h3 className="text-[#4b5563] text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mb-4 text-center">
-                                ẤN VÀO ĐÂY
-                              </h3>
-                              <h2 className="text-[#1e3a5f] text-2xl md:text-4xl font-extrabold uppercase text-center leading-tight mb-8">
-                                ĐỂ ĐỌC TOÀN BỘ<br className="hidden md:block"/> CHƯƠNG TRUYỆN
-                              </h2>
-                              <p className="text-[#6b7280] text-sm md:text-base uppercase tracking-wider text-center max-w-md">
-                                HÀNH ĐỘNG NÀY CHỈ THỰC HIỆN MỘT LẦN<br className="hidden md:block" /> MONG QUÝ ĐỘC GIẢ ỦNG HỘ
-                              </p>
+                            <div className="relative max-w-xl md:max-w-2xl w-full transition-transform duration-300 group-hover:scale-[1.02]">
+                              <img src="/click.png" alt="Ấn vào đây để đọc toàn bộ chương truyện" className="w-full h-auto rounded-lg shadow-xl" />
 
-                              {/* Hand Cursor Icon */}
-                              <div className="absolute -bottom-10 -right-4 md:bottom-2 md:right-10 animate-bounce drop-shadow-2xl z-10 scale-[1.5]">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" stroke="#333" strokeWidth="1" className="rotate-[-15deg]">
-                                  <path d="M10.5 3.5c.828 0 1.5.895 1.5 2v4h1a1.5 1.5 0 0 1 1.5 1.5v.5h1a1.5 1.5 0 0 1 1.5 1.5v.5h.5a2 2 0 0 1 2 2v3.704c0 1.341-.56 2.62-1.545 3.535L15.42 24 10 20v-3.5c0-.828-.672-1.5-1.5-1.5s-1.5-.672-1.5-1.5V5.5c0-1.105.672-2 1.5-2z" />
-                                </svg>
+                              {/* Cute Hand Cursor Icon */}
+                              <div className="absolute bottom-2 right-4 md:bottom-6 md:right-8 animate-bounce z-10 flex items-center drop-shadow-[0_8px_16px_rgba(255,105,180,0.4)] text-[#ff69b4]">
+                                {/* Click Ripple Effect at the tip */}
+                                <div className="absolute top-0 left-0 md:top-2 md:left-2 z-[-1] flex items-center justify-center">
+                                  <span className="absolute w-8 h-8 md:w-12 md:h-12 border-4 border-pink-400 rounded-full animate-ping opacity-60"></span>
+                                </div>
+                                
+                                <MousePointer2 fill="#ffebf0" className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] rotate-[5deg] relative z-10" strokeWidth={1.5} />
                               </div>
                             </div>
                           </div>
                           
-                          <div className="px-4 text-center max-w-3xl mx-auto mt-10">
-                            <p className="text-[18px] md:text-[22px] text-black">
-                              Tịnh Ngôn Cốc và đội ngũ Editor xin chân thành cảm ơn!
+                          <div className="px-4 text-center max-w-3xl mx-auto mt-6 md:mt-10">
+                            <p className="text-[16px] md:text-[22px] text-black">
+                              Cây Tre Đam Mỹ và đội ngũ Editor xin chân thành cảm ơn!
                             </p>
                             {unlockError && <p className="text-red-500 font-bold mt-4">{unlockError}</p>}
                           </div>
