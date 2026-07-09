@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
   Menu,
+  Link2,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -67,7 +68,7 @@ export default function AdminLayout({
   const navigation = [
     { name: "Quản lý Truyện", href: "/admin/novels", icon: BookOpen },
     { name: "Người dùng", href: "/admin/users", icon: Users },
-    { name: "Nạp Coin", href: "/admin/transactions", icon: Coins },
+    { name: "Liên kết Affiliate", href: "/admin/affiliate-links", icon: Link2 },
     { name: "Cài đặt", href: "/admin/settings", icon: Settings },
   ];
 
@@ -77,7 +78,7 @@ export default function AdminLayout({
       <aside className="hidden md:flex w-64 flex-col bg-[#111] border-r border-neutral-800 fixed top-0 left-0 h-screen z-30">
         <div className="h-16 flex items-center px-6 border-b border-neutral-800">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold text-yellow-400">Mê Truyện</span>
+            <span className="text-xl font-bold text-yellow-400">Cây Tre Đam Mỹ</span>
             <span className="text-xs bg-yellow-400/20 text-yellow-400 px-2 py-0.5 rounded-full">Admin</span>
           </Link>
         </div>
@@ -117,7 +118,7 @@ export default function AdminLayout({
       <div className="flex-1 flex flex-col min-w-0 md:ml-64">
         <header className="md:hidden h-16 flex items-center justify-between px-4 border-b border-neutral-800 bg-[#111]">
           <Link href="/admin" className="text-xl font-bold text-yellow-400">
-            Mê Truyện Admin
+            Cây Tre Đam Mỹ Admin
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

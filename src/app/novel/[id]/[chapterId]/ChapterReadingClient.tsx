@@ -22,11 +22,12 @@ interface ChapterData {
   nextChapter: number | null;
 }
 
-interface BulkInfo {
-  totalRetail: number;
-  totalPrice: number;
-  unpurchasedCount: number;
-  discount: number;
+interface AffiliateLink {
+  id: string;
+  url: string;
+  title: string;
+  description: string | null;
+  imageUrl: string | null;
 }
 
 export default function ChapterReadingClient() {
@@ -41,17 +42,12 @@ export default function ChapterReadingClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Modal state
-  const [showModal, setShowModal] = useState(false);
-  const [purchasing, setPurchasing] = useState(false);
-  const [purchaseError, setPurchaseError] = useState("");
-  const [bulkInfo, setBulkInfo] = useState<BulkInfo | null>(null);
+  const [affiliateLinks, setAffiliateLinks] = useState<AffiliateLink[]>([]);
+  const [unlocking, setUnlocking] = useState(false);
+  const [unlockError, setUnlockError] = useState("");
 
   const getUserId = () => {
     try { const raw = localStorage.getItem("user"); return raw ? JSON.parse(raw).id : null; } catch { return null; }
-  };
-  const getUserCoins = () => {
-    try { const raw = localStorage.getItem("user"); return raw ? (JSON.parse(raw).coins ?? 0) : 0; } catch { return 0; }
   };
 
   const fetchChapter = () => {
@@ -73,46 +69,12 @@ export default function ChapterReadingClient() {
     if (novelId && chapterNum) fetchChapter();
   }, [novelId, chapterNum]);
 
-  // Chặn F12, Ctrl+Shift+I/J/C, Ctrl+U (DevTools & View Source)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // F12
-      if (e.key === 'F12') {
-        e.preventDefault();
-        return;
-      }
-      // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-        e.preventDefault();
-        return;
-      }
-      // Ctrl+U (view source)
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-        e.preventDefault();
-        return;
-      }
-    };
-
-    const handleContextMenu = (e: MouseEvent) => {
-      e.preventDefault();
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('contextmenu', handleContextMenu);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('contextmenu', handleContextMenu);
-    };
-  }, []);
-
-  // Fetch bulk info khi chương bị khóa
+  // Fetch affiliate links khi chapter bị khóa
   useEffect(() => {
     if (!chapter?.isLocked || chapter.isPurchased) return;
-    const userId = getUserId();
-    fetch(`/api/novels/${novelId}/purchase-all${userId ? `?userId=${userId}` : ""}`)
+    fetch("/api/affiliate-links")
       .then((r) => r.json())
-      .then((data) => setBulkInfo(data))
+      .then((data) => setAffiliateLinks(data))
       .catch(() => {});
   }, [chapter]);
 
@@ -127,65 +89,32 @@ export default function ChapterReadingClient() {
     }).catch(() => {});
   }, [chapter]);
 
-  const updateCoins = (newCoins: number) => {
-    try {
-      const raw = localStorage.getItem("user");
-      if (raw) {
-        const u = JSON.parse(raw);
-        u.coins = newCoins;
-        localStorage.setItem("user", JSON.stringify(u));
-      }
-    } catch {}
-  };
-
-  const handlePurchaseSingle = async () => {
+  const handleAffiliateClick = async (link: AffiliateLink) => {
     const userId = getUserId();
-    if (!userId) { setPurchaseError("Bạn cần đăng nhập để mua chương."); return; }
-    setPurchasing(true);
-    setPurchaseError("");
+    if (!userId) { setUnlockError("Bạn cần đăng nhập để mở khóa."); return; }
+    setUnlocking(true);
+    setUnlockError("");
+
+    // Mở link affiliate trong tab mới
+    window.open(link.url, "_blank", "noopener,noreferrer");
+
     try {
-      const res = await fetch(`/api/novels/${novelId}/chapters/${chapterNum}/purchase`, {
+      const res = await fetch(`/api/affiliate-links/${link.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
+        body: JSON.stringify({ userId, chapterId: chapter?.id }),
       });
       const data = await res.json();
       if (res.ok) {
-        updateCoins(data.coinsRemaining);
-        setShowModal(false);
         fetchChapter();
-      } else if (res.status === 402) {
-        setPurchaseError(`Không đủ xu. Cần ${data.required} xu, bạn có ${data.current} xu.`);
       } else {
-        setPurchaseError(data.error || "Mua thất bại");
+        setUnlockError(data.error || "Mở khóa thất bại");
       }
-    } catch { setPurchaseError("Lỗi kết nối"); }
-    finally { setPurchasing(false); }
-  };
-
-  const handlePurchaseAll = async () => {
-    const userId = getUserId();
-    if (!userId) { setPurchaseError("Bạn cần đăng nhập để mua."); return; }
-    setPurchasing(true);
-    setPurchaseError("");
-    try {
-      const res = await fetch(`/api/novels/${novelId}/purchase-all`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        updateCoins(data.coinsRemaining);
-        setShowModal(false);
-        fetchChapter();
-      } else if (res.status === 402) {
-        setPurchaseError(`Không đủ xu. Cần ${data.required} xu, bạn có ${data.current} xu.`);
-      } else {
-        setPurchaseError(data.error || "Mua thất bại");
-      }
-    } catch { setPurchaseError("Lỗi kết nối"); }
-    finally { setPurchasing(false); }
+    } catch {
+      setUnlockError("Lỗi kết nối");
+    } finally {
+      setUnlocking(false);
+    }
   };
 
   const contentParagraphs = chapter?.content
@@ -220,25 +149,54 @@ export default function ChapterReadingClient() {
 
               {!loading && error && <div className="text-center py-20 text-red-400">{error}</div>}
 
-              {/* Paywall — hiện nút mở modal */}
+              {/* Paywall — hiện link affiliate để mở khóa */}
               {!loading && chapter && chapter.isLocked && !chapter.isPurchased && (
-                <div className="text-center py-20">
-                  <div className="inline-flex flex-col items-center gap-4 max-w-sm mx-auto">
-                    <div className="w-14 h-14 rounded-full bg-yellow-500/10 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-yellow-400">
-                        <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
+                <div className="text-center py-12">
+                  <div className="inline-flex flex-col items-center gap-4 max-w-lg mx-auto">
+                    <div className="w-14 h-14 rounded-full bg-pink/10 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-pink">
+                        <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 00-5.304 0l-4.5 4.5a3.75 3.75 0 001.035 6.037.75.75 0 01-.646 1.353 5.25 5.25 0 01-1.449-8.45l4.5-4.5a5.25 5.25 0 117.424 7.424l-1.757 1.757a.75.75 0 11-1.06-1.06l1.757-1.757a3.75 3.75 0 000-5.304zm-7.389 4.267a.75.75 0 011-.353 5.25 5.25 0 011.449 8.45l-4.5 4.5a5.25 5.25 0 11-7.424-7.424l1.757-1.757a.75.75 0 111.06 1.06l-1.757 1.757a3.75 3.75 0 105.304 5.304l4.5-4.5a3.75 3.75 0 00-1.035-6.037.75.75 0 01-.354-1z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <div>
-                      <h2 className="text-xl font-bold mb-1">Chương {chapter.chapterNumber} — Trả phí</h2>
+                      <h2 className="text-xl font-bold mb-1">Chương {chapter.chapterNumber} — Cần mở khóa</h2>
                       {chapter.title && <p className="text-black text-sm">{chapter.title}</p>}
+                      <p className="text-muted text-sm mt-2">
+                        Click vào một link bên dưới để mở khóa chương này (miễn phí)
+                      </p>
                     </div>
-                    <button
-                      onClick={() => { setPurchaseError(""); setShowModal(true); }}
-                      className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-3 rounded-xl transition-colors"
-                    >
-                      Mở khóa {chapter.price} xu
-                    </button>
+
+                    {/* Danh sách link affiliate */}
+                    {affiliateLinks.length > 0 ? (
+                      <div className="w-full space-y-3 mt-2">
+                        {affiliateLinks.map((link) => (
+                          <button
+                            key={link.id}
+                            onClick={() => handleAffiliateClick(link)}
+                            disabled={unlocking}
+                            className="w-full flex items-center gap-3 bg-white border-2 border-pink/30 hover:border-pink rounded-xl px-5 py-4 text-left transition-all hover:shadow-lg disabled:opacity-50"
+                          >
+                            <div className="w-10 h-10 rounded-full bg-pink/10 flex items-center justify-center shrink-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-pink">
+                                <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 00-5.304 0l-4.5 4.5a3.75 3.75 0 001.035 6.037.75.75 0 01-.646 1.353 5.25 5.25 0 01-1.449-8.45l4.5-4.5a5.25 5.25 0 117.424 7.424l-1.757 1.757a.75.75 0 11-1.06-1.06l1.757-1.757a3.75 3.75 0 000-5.304zm-7.389 4.267a.75.75 0 011-.353 5.25 5.25 0 011.449 8.45l-4.5 4.5a5.25 5.25 0 11-7.424-7.424l1.757-1.757a.75.75 0 111.06 1.06l-1.757 1.757a3.75 3.75 0 105.304 5.304l4.5-4.5a3.75 3.75 0 00-1.035-6.037.75.75 0 01-.354-1z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-bold text-black">{link.title}</div>
+                              {link.description && <div className="text-xs text-muted truncate">{link.description}</div>}
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-pink shrink-0">
+                              <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
+                              <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
+                            </svg>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted italic">Hiện chưa có link affiliate nào để mở khóa.</p>
+                    )}
+
+                    {unlockError && <p className="text-red-400 text-xs">{unlockError}</p>}
                   </div>
                 </div>
               )}
@@ -268,103 +226,6 @@ export default function ChapterReadingClient() {
           </main>
         </div>
       </div>
-
-      {/* Purchase Modal */}
-      {showModal && chapter && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-site/80 backdrop-blur-sm" onClick={() => setShowModal(false)} />
-
-          {/* Modal */}
-          <div className="relative bg-white border-2 border-pink rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <h2 className="text-lg font-bold text-black mb-1">
-              Mua chương {chapter.chapterNumber}
-            </h2>
-            <p className="text-muted text-sm mb-4">
-              Bạn sẽ dùng <span className="text-black font-bold">{chapter.price}</span> 🪙 xu để mở chương này.
-            </p>
-
-            {/* Bulk offer */}
-            {bulkInfo && bulkInfo.unpurchasedCount > 1 && (
-              <p className="text-sm mb-4">
-                Hoặc ủng hộ{" "}
-                <span className="text-black font-bold">{bulkInfo.totalPrice} Xu</span>{" "}
-                để đọc trọn bộ{" "}
-                <span className="text-red-400 font-medium">
-                  (Giảm {bulkInfo.discount}% so với mua lẻ từng chương)
-                </span>
-              </p>
-            )}
-
-            {/* Info list */}
-            <ul className="text-sm text-black space-y-2 mb-5 list-disc list-inside">
-              <li>Sau khi mua, bạn có thể đọc chương này không giới hạn số lần.</li>
-              <li>Bạn chỉ bị trừ Xu khi đọc chương này lần đầu tiên.</li>
-              <li>
-                Kiểm tra Xu hiện tại tại{" "}
-                <Link href="/profile" className="underline font-semibold text-black hover:text-pink" onClick={() => setShowModal(false)}>
-                  Trang cá nhân
-                </Link>
-                . Nạp thêm Xu tại{" "}
-                <Link href="/topup" className="underline font-semibold text-black hover:text-pink" onClick={() => setShowModal(false)}>
-                  Nạp xu
-                </Link>
-                .
-              </li>
-              <li>
-                Nếu có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ{" "}
-                <a href="https://www.facebook.com/share/1UFcSHCMsM/" target="_blank" rel="noopener noreferrer" className="underline font-semibold text-black hover:text-pink">
-                  Fanpage
-                </a>
-                .
-              </li>
-            </ul>
-
-            {/* Xu hiện có */}
-            <div className="flex items-center justify-between text-sm bg-gray-200/60 rounded-lg px-4 py-2.5 mb-4">
-              <span className="text-muted">Xu của bạn</span>
-              <span className="font-bold text-pink">{getUserCoins()} xu</span>
-            </div>
-
-            {purchaseError && (
-              <p className="text-red-400 text-xs text-center mb-3">{purchaseError}</p>
-            )}
-
-            {/* Buttons */}
-            <div className="flex items-center justify-end gap-3 flex-wrap">
-              <button
-                onClick={() => setShowModal(false)}
-                className="text-muted hover:text-black px-4 py-2 text-sm transition-colors"
-              >
-                Hủy
-              </button>
-
-              <button
-                onClick={handlePurchaseSingle}
-                disabled={purchasing}
-                className="bg-neutral-200 hover:bg-white text-black font-bold px-5 py-2.5 rounded-xl text-sm transition-colors disabled:opacity-50"
-              >
-                {purchasing ? "Đang mua..." : "Mua chương này"}
-              </button>
-
-              {bulkInfo && bulkInfo.unpurchasedCount > 1 && (
-                <div className="relative">
-                  <span className="absolute -top-2.5 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full z-10">
-                    -{bulkInfo.discount}%
-                  </span>
-                  <button
-                    onClick={handlePurchaseAll}
-                    disabled={purchasing}
-                    className="bg-neutral-200 hover:bg-white text-black font-bold px-5 py-2.5 rounded-xl text-sm transition-colors disabled:opacity-50"
-                  >
-                    Mua toàn bộ
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

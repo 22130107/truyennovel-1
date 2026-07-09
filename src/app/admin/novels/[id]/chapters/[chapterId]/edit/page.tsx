@@ -127,7 +127,7 @@ export default function AdminEditChapterPage() {
                 </div>
                 {isLocked && (
                   <div className="flex items-center gap-3 border-l border-neutral-700 pl-6">
-                    <label className="text-white text-sm">Giá (Coin):</label>
+                    <label className="text-white text-sm">Giá:</label>
                     <input
                       type="number"
                       value={price}

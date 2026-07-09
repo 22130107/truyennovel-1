@@ -229,4 +229,20 @@ CREATE TABLE `user`  (
 -- ----------------------------
 INSERT INTO `user` VALUES ('b99f39d8-1476-4146-a5fd-156bfc20f71b', 'huynh080104@gmail.com', 'huynh080104', '$2b$10$5Fi7ORjROK/NT9PY/END4.rX31eudHPakI2iMQe4QZs89BUiZDGJu', NULL, 0, 'ADMIN', '2026-07-06 11:58:52.000', '2026-07-06 11:58:52.000');
 
+-- ----------------------------
+-- Table structure for affiliate_link
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_link`;
+CREATE TABLE `affiliate_link`  (
+  `id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `imageUrl` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updatedAt` datetime(3) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+
 SET FOREIGN_KEY_CHECKS = 1;

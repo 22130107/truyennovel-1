@@ -130,7 +130,7 @@ export default function AdminChaptersPage() {
         <select className="bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-yellow-400 appearance-none min-w-[150px]">
           <option value="all">Tất cả thu phí</option>
           <option value="free">Miễn phí</option>
-          <option value="paid">Trả phí (Coin)</option>
+          <option value="paid">Trả phí</option>
         </select>
         <button className="flex items-center gap-2 bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl hover:bg-neutral-900 transition-colors">
           <Filter className="w-5 h-5" />
@@ -146,7 +146,7 @@ export default function AdminChaptersPage() {
               <tr className="bg-neutral-900/50">
                 <th className="p-4 text-neutral-400 font-medium text-sm w-16">Chương</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Tên chương</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm text-center">Thu phí (Coin)</th>
+                <th className="p-4 text-neutral-400 font-medium text-sm text-center">Thu phí</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Lượt xem</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Trạng thái</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Ngày đăng</th>

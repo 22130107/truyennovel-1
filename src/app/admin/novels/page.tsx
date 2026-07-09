@@ -147,7 +147,7 @@ export default function AdminNovelsPage() {
                             ? 'bg-yellow-500/10 text-yellow-500' 
                             : 'bg-neutral-800 text-neutral-400'
                         }`}>
-                          {novel.maxPrice > 0 ? 'Trả phí' : 'Miễn phí'}
+                          {novel.maxPrice > 0 ? 'Có khóa' : 'Miễn phí'}
                         </span>
                       </td>
                       <td className="p-4 text-center">

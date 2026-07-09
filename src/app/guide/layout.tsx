@@ -3,14 +3,14 @@ import { Metadata } from "next";
 const SITE_URL = "https://truyenhot.online";
 
 export const metadata: Metadata = {
-  title: "Hướng Dẫn Nạp Xu - Truyện Hot",
-  description: "Hướng dẫn chi tiết cách nạp xu tại Truyện Hot qua chuyển khoản ngân hàng, Momo, ZaloPay. Nạp nhanh, nhận xu ngay.",
+  title: "Hướng Dẫn - Truyện Hot",
+  description: "Hướng dẫn sử dụng website Truyện Hot.",
   alternates: {
     canonical: `${SITE_URL}/guide`,
   },
   openGraph: {
-    title: "Hướng Dẫn Nạp Xu - Truyện Hot",
-    description: "Hướng dẫn chi tiết cách nạp xu tại Truyện Hot.",
+    title: "Hướng Dẫn - Truyện Hot",
+    description: "Hướng dẫn sử dụng website Truyện Hot.",
     url: `${SITE_URL}/guide`,
     type: "website",
   },

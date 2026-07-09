@@ -85,7 +85,7 @@ export default function AdminUsersPage() {
                 <tr className="bg-neutral-900/50">
                   <th className="p-4 text-neutral-400 font-medium text-sm">Người dùng</th>
                   <th className="p-4 text-neutral-400 font-medium text-sm">Email</th>
-                  <th className="p-4 text-neutral-400 font-medium text-sm">Số dư Coin</th>
+                  <th className="p-4 text-neutral-400 font-medium text-sm">Số dư</th>
                   <th className="p-4 text-neutral-400 font-medium text-sm">Quyền</th>
                   <th className="p-4 text-neutral-400 font-medium text-sm">Trạng thái</th>
                   <th className="p-4 text-neutral-400 font-medium text-sm">Ngày tham gia</th>
@@ -114,7 +114,7 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="p-4 text-neutral-400">{user.email}</td>
                       <td className="p-4 font-medium text-yellow-400">
-                        {user.coins?.toLocaleString() || 0} <span className="text-xs text-neutral-500 ml-1">Coin</span>
+                        {user.coins?.toLocaleString() || 0}
                       </td>
                       <td className="p-4">
                         <span className={`px-2.5 py-1 rounded-full text-xs font-medium uppercase tracking-wider ${

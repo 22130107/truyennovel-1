@@ -121,7 +121,6 @@ export function Header() {
                 </div>
               </div>
 
-              <Link href="/guide" className="items-center flex text-black pt-2 pr-4 pb-2 pl-4 rounded-md hover:bg-black/5 transition-colors font-medium">Hướng dẫn nạp</Link>
               <a
                 href="https://www.facebook.com/share/1UFcSHCMsM/"
                 target="_blank"
@@ -251,16 +250,6 @@ export function Header() {
                           <span className="text-sm">Trang cá nhân</span>
                         </Link>
                         
-                        <Link
-                          href="/topup"
-                          onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-4 px-3 py-2.5 text-black hover:text-black hover:bg-black/5 rounded-md transition-colors"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm">Nạp xu</span>
-                        </Link>
                       </div>
                       
                       {/* Logout */}
@@ -323,7 +312,6 @@ export function Header() {
                 {isLoggedIn && (
                   <>
                     <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)} className="block text-lg font-medium text-gray-800 py-2">Trang cá nhân</Link>
-                    <Link href="/topup" onClick={() => setIsMobileMenuOpen(false)} className="block text-lg font-medium text-gray-800 py-2">Nạp xu</Link>
                     <button 
                       onClick={() => { setIsMobileMenuOpen(false); handleLogout(); }} 
                       className="block text-lg font-bold text-red-500 py-2 w-full text-left"
@@ -332,7 +320,6 @@ export function Header() {
                     </button>
                   </>
                 )}
-                <Link href="/guide" onClick={() => setIsMobileMenuOpen(false)} className="block text-lg font-medium text-gray-800 py-2">Hướng dẫn nạp</Link>
                 {!isLoggedIn && (
                   <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="block text-lg font-bold text-pink py-2">Đăng nhập / Đăng ký</Link>
                 )}

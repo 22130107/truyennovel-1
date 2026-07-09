@@ -30,9 +30,7 @@ interface Transaction {
 
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loadingPurchases, setLoadingPurchases] = useState(false);
   const [loadingTransactions, setLoadingTransactions] = useState(false);
 
   useEffect(() => {
@@ -42,15 +40,7 @@ export default function ProfilePage() {
         try {
           const parsed = JSON.parse(userData);
           setUser(parsed);
-          // Fetch lịch sử mua sau khi có userId
           if (parsed?.id) {
-            setLoadingPurchases(true);
-            fetch(`/api/user/purchases?userId=${parsed.id}`)
-              .then((r) => r.json())
-              .then((data) => setPurchases(Array.isArray(data) ? data : []))
-              .catch(() => setPurchases([]))
-              .finally(() => setLoadingPurchases(false));
-
             setLoadingTransactions(true);
             fetch(`/api/user/transactions?userId=${parsed.id}`)
               .then((r) => r.json())
@@ -63,7 +53,6 @@ export default function ProfilePage() {
         }
       } else {
         setUser(null);
-        setPurchases([]);
       }
     };
 
@@ -73,10 +62,10 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-site text-black">
+    <div className="min-h-screen bg-site text-black flex flex-col">
       <Header />
       
-      <main className="pt-24 pb-16 px-4 md:px-8 max-w-[1920px] mx-auto">
+      <main className="flex-1 pt-24 pb-16 px-4 md:px-8 max-w-[1920px] mx-auto w-full">
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-1">
@@ -85,29 +74,12 @@ export default function ProfilePage() {
             </svg>
             <h1 className="text-2xl font-bold">Trang cá nhân</h1>
           </div>
-          <p className="text-muted text-sm ml-9">Quản lý thông tin và ví xu của bạn</p>
+          <p className="text-muted text-sm ml-9">Quản lý thông tin cá nhân của bạn</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Ví xu */}
-          <div className="bg-white border-2 border-pink rounded-xl p-6 shadow-lg">
-            <div className="flex items-center gap-2 mb-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-pink">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <h2 className="font-bold text-black">Ví xu</h2>
-            </div>
-            <p className="text-xs text-muted mb-4">Số xu hiện có trong tài khoản</p>
-            <div className="text-3xl font-black text-pink mb-6 italic">{user ? user.coins : 0} xu</div>
-            <Link href="/topup">
-              <button className="w-full bg-[rgb(208,203,203)] hover:bg-white text-neutral-900 font-bold py-2.5 rounded-lg transition-colors text-sm">
-                Nạp thêm xu
-              </button>
-            </Link>
-          </div>
-
+        <div className="grid grid-cols-1 gap-6 mb-8">
           {/* Thông tin tài khoản */}
-          <div className="lg:col-span-2 bg-white border-2 border-pink rounded-xl p-6 shadow-lg">
+          <div className="bg-white border-2 border-pink rounded-xl p-6 shadow-lg">
             <div className="flex items-center gap-2 mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-blue-400">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
@@ -159,124 +131,9 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Lịch sử mua chương */}
-        <div className="bg-white border-2 border-pink rounded-xl p-6 shadow-lg mb-8">
-          <div className="flex items-center gap-2 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-pink">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <h2 className="font-bold text-black">Lịch sử mua chương</h2>
-          </div>
-          <p className="text-xs text-muted mb-4">Các chương truyện bạn đã mở khóa</p>
 
-          {loadingPurchases ? (
-            <div className="py-8 text-center text-muted text-sm">Đang tải...</div>
-          ) : purchases.length === 0 ? (
-            <div className="py-8 text-center text-black text-sm">Chưa có lịch sử mua chương nào</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b-[2px] border-pink">
-                    <th className="text-left py-2 px-3 text-black font-medium">Truyện</th>
-                    <th className="text-left py-2 px-3 text-black font-medium">Chương</th>
-                    <th className="text-center py-2 px-3 text-black font-medium">Xu đã dùng</th>
-                    <th className="text-right py-2 px-3 text-black font-medium">Ngày mua</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-pink">
-                  {purchases.map((p) => (
-                    <tr key={p.id} className="hover:bg-black/5 transition-colors">
-                      <td className="py-3 px-3">
-                        <Link href={`/novel/${p.novelSlug || p.novelId}`} className="text-black hover:text-pink transition-colors font-medium line-clamp-1">
-                          {p.novelTitle}
-                        </Link>
-                      </td>
-                      <td className="py-3 px-3">
-                        {p.isCombo ? (
-                          <span className="inline-flex items-center gap-1.5 text-pink font-medium">
-                            <span className="bg-pink/10 border border-pink/30 text-pink text-[10px] font-bold px-1.5 py-0.5 rounded">COMBO</span>
-                            {p.comboCount} chương
-                          </span>
-                        ) : (
-                          <Link href={`/novel/${p.novelSlug || p.novelId}/${p.chapterNumber}`} className="text-black hover:text-pink transition-colors">
-                            Chương {p.chapterNumber}{p.chapterTitle ? `: ${p.chapterTitle}` : ""}
-                          </Link>
-                        )}
-                      </td>
-                      <td className="py-3 px-3 text-center">
-                        <span className="text-pink font-bold">{p.pricePaid} xu</span>
-                      </td>
-                      <td className="py-3 px-3 text-right text-muted text-xs">
-                        {new Date(p.purchasedAt).toLocaleString('vi-VN')}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
 
-        {/* Lịch sử nạp tiền */}
-        <div className="bg-white border-2 border-pink rounded-xl p-6 shadow-lg mb-8">
-          <div className="flex items-center gap-2 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-500">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <h2 className="font-bold text-black">Lịch sử nạp tiền</h2>
-          </div>
-          <p className="text-xs text-muted mb-4">Lịch sử các giao dịch nạp xu của bạn</p>
 
-          {loadingTransactions ? (
-            <div className="py-8 text-center text-muted text-sm">Đang tải...</div>
-          ) : transactions.length === 0 ? (
-            <div className="py-8 text-center text-black text-sm">Chưa có giao dịch nạp tiền nào</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b-[2px] border-pink">
-                    <th className="text-left py-2 px-3 text-black font-medium">Mã giao dịch</th>
-                    <th className="text-left py-2 px-3 text-black font-medium">Số tiền</th>
-                    <th className="text-center py-2 px-3 text-black font-medium">Số xu nhận</th>
-                    <th className="text-center py-2 px-3 text-black font-medium">Trạng thái</th>
-                    <th className="text-right py-2 px-3 text-black font-medium">Ngày nạp</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-pink">
-                  {transactions.map((t) => (
-                    <tr key={t.id} className="hover:bg-black/5 transition-colors">
-                      <td className="py-3 px-3">
-                        <span className="text-xs font-mono text-black">{t.id.slice(0, 8)}...</span>
-                      </td>
-                      <td className="py-3 px-3">
-                        <span className="text-black font-medium">{t.amountMoney.toLocaleString('vi-VN')}đ</span>
-                        <div className="text-[10px] text-muted">{t.paymentMethod}</div>
-                      </td>
-                      <td className="py-3 px-3 text-center">
-                        <span className="text-pink font-bold">+{t.amountXu} xu</span>
-                      </td>
-                      <td className="py-3 px-3 text-center">
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-                          t.status === 'COMPLETED' ? 'bg-green-500/10 text-green-500' :
-                          t.status === 'PENDING' ? 'bg-pink/10 text-pink' :
-                          'bg-red-500/10 text-red-500'
-                        }`}>
-                          {t.status === 'COMPLETED' ? 'Thành công' :
-                           t.status === 'PENDING' ? 'Chờ duyệt' : 'Thất bại'}
-                        </span>
-                      </td>
-                      <td className="py-3 px-3 text-right text-muted text-xs">
-                        {new Date(t.createdAt).toLocaleString('vi-VN')}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
 
         {/* Footer Navigation */}
         <div className="flex items-center gap-4 flex-wrap">
@@ -290,14 +147,6 @@ export default function ProfilePage() {
               </button>
             </Link>
           )}
-          <Link href="/topup">
-            <button className="bg-black/5 border-2 border-pink hover:bg-black/10 text-black px-6 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all">
-              Nạp xu 
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            </button>
-          </Link>
           <Link href="/" className="text-muted hover:text-black transition-colors text-sm font-medium ml-2">
             Trang chủ
           </Link>
