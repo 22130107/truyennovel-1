@@ -27,8 +27,8 @@ function StarRow({ score }: { score: number }) {
           key={s}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill={s <= score ? "#E91E91" : "none"}
-          stroke={s <= score ? "#E91E91" : "currentColor"}
+          fill={s <= score ? "var(--color-pink)" : "none"}
+          stroke={s <= score ? "var(--color-pink)" : "currentColor"}
           strokeWidth="2"
           className={`w-4 h-4 ${s <= score ? "" : "text-black"}`}
         >

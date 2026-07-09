@@ -102,7 +102,7 @@ export default function ChapterReadingClient() {
       const res = await fetch(`/api/affiliate-links/${link.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, chapterId: chapter?.id }),
+        body: JSON.stringify({ userId, novelId: chapter?.novelId }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -151,53 +151,65 @@ export default function ChapterReadingClient() {
 
               {/* Paywall — hiện link affiliate để mở khóa */}
               {!loading && chapter && chapter.isLocked && !chapter.isPurchased && (
-                <div className="text-center py-12">
-                  <div className="inline-flex flex-col items-center gap-4 max-w-lg mx-auto">
-                    <div className="w-14 h-14 rounded-full bg-pink/10 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-pink">
-                        <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 00-5.304 0l-4.5 4.5a3.75 3.75 0 001.035 6.037.75.75 0 01-.646 1.353 5.25 5.25 0 01-1.449-8.45l4.5-4.5a5.25 5.25 0 117.424 7.424l-1.757 1.757a.75.75 0 11-1.06-1.06l1.757-1.757a3.75 3.75 0 000-5.304zm-7.389 4.267a.75.75 0 011-.353 5.25 5.25 0 011.449 8.45l-4.5 4.5a5.25 5.25 0 11-7.424-7.424l1.757-1.757a.75.75 0 111.06 1.06l-1.757 1.757a3.75 3.75 0 105.304 5.304l4.5-4.5a3.75 3.75 0 00-1.035-6.037.75.75 0 01-.354-1z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 className="text-xl font-bold mb-1">Chương {chapter.chapterNumber} — Cần mở khóa</h2>
-                      {chapter.title && <p className="text-black text-sm">{chapter.title}</p>}
-                      <p className="text-muted text-sm mt-2">
-                        Click vào một link bên dưới để mở khóa chương này (miễn phí)
-                      </p>
-                    </div>
-
-                    {/* Danh sách link affiliate */}
-                    {affiliateLinks.length > 0 ? (
-                      <div className="w-full space-y-3 mt-2">
-                        {affiliateLinks.map((link) => (
-                          <button
-                            key={link.id}
-                            onClick={() => handleAffiliateClick(link)}
-                            disabled={unlocking}
-                            className="w-full flex items-center gap-3 bg-white border-2 border-pink/30 hover:border-pink rounded-xl px-5 py-4 text-left transition-all hover:shadow-lg disabled:opacity-50"
+                <div className="py-8 w-full bg-white rounded-xl overflow-hidden shadow-sm">
+                  {affiliateLinks.length > 0 ? (
+                    <div className="flex flex-col items-center">
+                      {affiliateLinks.map((link) => (
+                        <div key={link.id} className="w-full flex flex-col items-center">
+                          <div className="px-4 text-center max-w-3xl mx-auto mb-6">
+                            <p className="text-[18px] md:text-[22px] leading-relaxed text-black">
+                              Mời Quý độc giả <strong>CLICK</strong> vào <strong>liên kết hoặc ảnh</strong> bên dưới<br />
+                              <strong>mở ứng dụng {link.title || 'Shopee'}</strong> để tiếp tục đọc toàn bộ chương truyện!
+                            </p>
+                          </div>
+                          
+                          <a 
+                            href={link.url}
+                            onClick={(e) => { e.preventDefault(); handleAffiliateClick(link); }}
+                            className="text-[16px] md:text-[20px] font-bold text-black mb-8 hover:underline text-center break-all px-4 max-w-3xl"
                           >
-                            <div className="w-10 h-10 rounded-full bg-pink/10 flex items-center justify-center shrink-0">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-pink">
-                                <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 00-5.304 0l-4.5 4.5a3.75 3.75 0 001.035 6.037.75.75 0 01-.646 1.353 5.25 5.25 0 01-1.449-8.45l4.5-4.5a5.25 5.25 0 117.424 7.424l-1.757 1.757a.75.75 0 11-1.06-1.06l1.757-1.757a3.75 3.75 0 000-5.304zm-7.389 4.267a.75.75 0 011-.353 5.25 5.25 0 011.449 8.45l-4.5 4.5a5.25 5.25 0 11-7.424-7.424l1.757-1.757a.75.75 0 111.06 1.06l-1.757 1.757a3.75 3.75 0 105.304 5.304l4.5-4.5a3.75 3.75 0 00-1.035-6.037.75.75 0 01-.354-1z" clipRule="evenodd" />
-                              </svg>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="font-bold text-black">{link.title}</div>
-                              {link.description && <div className="text-xs text-muted truncate">{link.description}</div>}
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-pink shrink-0">
-                              <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
-                              <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
-                            </svg>
-                          </button>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-muted italic">Hiện chưa có link affiliate nào để mở khóa.</p>
-                    )}
+                            {link.url}
+                          </a>
 
-                    {unlockError && <p className="text-red-400 text-xs">{unlockError}</p>}
-                  </div>
+                          <div 
+                            onClick={() => handleAffiliateClick(link)}
+                            className="w-full bg-[#c9913c] p-6 md:p-12 cursor-pointer relative flex justify-center group"
+                          >
+                            <div className="bg-[#f2f6fa] border-4 border-gray-500 rounded-lg p-8 md:p-14 shadow-xl flex flex-col items-center justify-center max-w-3xl w-full relative transition-transform duration-300 group-hover:scale-[1.02]">
+                              <h3 className="text-[#4b5563] text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mb-4 text-center">
+                                ẤN VÀO ĐÂY
+                              </h3>
+                              <h2 className="text-[#1e3a5f] text-2xl md:text-4xl font-extrabold uppercase text-center leading-tight mb-8">
+                                ĐỂ ĐỌC TOÀN BỘ<br className="hidden md:block"/> CHƯƠNG TRUYỆN
+                              </h2>
+                              <p className="text-[#6b7280] text-sm md:text-base uppercase tracking-wider text-center max-w-md">
+                                HÀNH ĐỘNG NÀY CHỈ THỰC HIỆN MỘT LẦN<br className="hidden md:block" /> MONG QUÝ ĐỘC GIẢ ỦNG HỘ
+                              </p>
+
+                              {/* Hand Cursor Icon */}
+                              <div className="absolute -bottom-10 -right-4 md:bottom-2 md:right-10 animate-bounce drop-shadow-2xl z-10 scale-[1.5]">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" stroke="#333" strokeWidth="1" className="rotate-[-15deg]">
+                                  <path d="M10.5 3.5c.828 0 1.5.895 1.5 2v4h1a1.5 1.5 0 0 1 1.5 1.5v.5h1a1.5 1.5 0 0 1 1.5 1.5v.5h.5a2 2 0 0 1 2 2v3.704c0 1.341-.56 2.62-1.545 3.535L15.42 24 10 20v-3.5c0-.828-.672-1.5-1.5-1.5s-1.5-.672-1.5-1.5V5.5c0-1.105.672-2 1.5-2z" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="px-4 text-center max-w-3xl mx-auto mt-10">
+                            <p className="text-[18px] md:text-[22px] text-black">
+                              Tịnh Ngôn Cốc và đội ngũ Editor xin chân thành cảm ơn!
+                            </p>
+                            {unlockError && <p className="text-red-500 font-bold mt-4">{unlockError}</p>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-20">
+                      <p className="text-lg text-muted italic mb-4">Hiện chưa có link affiliate nào để mở khóa.</p>
+                      {unlockError && <p className="text-red-500 font-bold">{unlockError}</p>}
+                    </div>
+                  )}
                 </div>
               )}
 

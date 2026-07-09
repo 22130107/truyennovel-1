@@ -18,7 +18,7 @@ export default function AdminAffiliateLinksPage() {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<{ type: "success" | "error"; msg: string } | null>(null);
-  const [form, setForm] = useState({ url: "", title: "", description: "", imageUrl: "" });
+  const [form, setForm] = useState({ url: "" });
 
   const showToast = (type: "success" | "error", msg: string) => {
     setToast({ type, msg });
@@ -40,8 +40,8 @@ export default function AdminAffiliateLinksPage() {
   useEffect(() => { fetchLinks(); }, []);
 
   const handleCreate = async () => {
-    if (!form.url || !form.title) {
-      showToast("error", "Vui lòng nhập URL và tiêu đề");
+    if (!form.url) {
+      showToast("error", "Vui lòng nhập URL");
       return;
     }
     setSaving(true);
@@ -53,7 +53,7 @@ export default function AdminAffiliateLinksPage() {
       });
       if (res.ok) {
         showToast("success", "Đã thêm link affiliate");
-        setForm({ url: "", title: "", description: "", imageUrl: "" });
+        setForm({ url: "" });
         setShowForm(false);
         fetchLinks();
       } else {
@@ -125,22 +125,10 @@ export default function AdminAffiliateLinksPage() {
       {showForm && (
         <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6 space-y-4">
           <h2 className="text-lg font-bold text-white">Thêm link affiliate mới</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-sm text-neutral-400 mb-1">URL Affiliate</label>
               <input type="url" value={form.url} onChange={e => setForm({ ...form, url: e.target.value })} placeholder="https://..." className={inputClass} />
-            </div>
-            <div>
-              <label className="block text-sm text-neutral-400 mb-1">Tiêu đề</label>
-              <input type="text" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="VD: Shopee" className={inputClass} />
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-sm text-neutral-400 mb-1">Mô tả (tùy chọn)</label>
-              <input type="text" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="VD: Mua sắm trên Shopee để ủng hộ tụi mình" className={inputClass} />
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-sm text-neutral-400 mb-1">URL hình ảnh (tùy chọn)</label>
-              <input type="url" value={form.imageUrl} onChange={e => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://..." className={inputClass} />
             </div>
           </div>
           <div className="flex justify-end gap-3 pt-2">
@@ -159,14 +147,13 @@ export default function AdminAffiliateLinksPage() {
               <tr className="bg-neutral-900/50">
                 <th className="p-4 text-neutral-400 font-medium text-sm">Tiêu đề</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">URL</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Mô tả</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm text-center">Kích hoạt</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm text-center">Hành động</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-800">
               {links.length === 0 ? (
-                <tr><td colSpan={5} className="p-8 text-center text-neutral-500">Chưa có link affiliate nào</td></tr>
+                <tr><td colSpan={4} className="p-8 text-center text-neutral-500">Chưa có link affiliate nào</td></tr>
               ) : (
                 links.map(link => (
                   <tr key={link.id} className="hover:bg-neutral-900/50 transition-colors">
@@ -177,7 +164,6 @@ export default function AdminAffiliateLinksPage() {
                         {link.url.substring(0, 40)}...
                       </a>
                     </td>
-                    <td className="p-4 text-neutral-400 text-sm">{link.description || "—"}</td>
                     <td className="p-4 text-center">
                       <button onClick={() => toggleActive(link)} className="mx-auto">
                         {link.isActive ? <ToggleRight className="w-6 h-6 text-green-400" /> : <ToggleLeft className="w-6 h-6 text-neutral-500" />}

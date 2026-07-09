@@ -74,7 +74,7 @@ export function Header() {
   return (
     <>
       <header className={`fixed left-0 top-0 right-0 transition-all duration-300 z-[999] py-1 ${
-        isScrolled ? 'bg-site/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        isScrolled ? 'bg-site border-b-[2px] border-pink shadow-lg' : 'bg-transparent'
       }`}>
         <div className="w-full px-4 md:px-8">
           <div className="items-center flex justify-between">
@@ -98,7 +98,7 @@ export function Header() {
             <div className="hidden md:flex items-center flex-wrap mr-auto ml-[16px] gap-[8px]">
               {/* Genres Dropdown */}
               <div className="relative group">
-                <button className="flex items-center text-center bg-transparent text-black pt-2 pr-4 pb-2 pl-4 rounded-md hover:bg-black/5 transition-colors font-medium">
+                <button className="flex items-center text-center bg-transparent text-black pt-2 pr-4 pb-2 pl-4 rounded-md hover:bg-black/5 transition-colors font-bold">
                   Thể Loại
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 ml-1 group-hover:rotate-180 transition-transform">
                     <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
@@ -125,7 +125,7 @@ export function Header() {
                 href="https://www.facebook.com/share/1UFcSHCMsM/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="items-center flex text-black pt-2 pr-4 pb-2 pl-4 rounded-md hover:bg-black/5 transition-colors font-medium"
+                className="items-center flex text-black pt-2 pr-4 pb-2 pl-4 rounded-md hover:bg-black/5 transition-colors font-bold"
               >
                 Fanpage
               </a>
@@ -196,7 +196,7 @@ export function Header() {
               </button>
               
               <Link href="/library" className="hidden md:block">
-                <button className="items-center flex font-medium justify-center overflow-hidden relative text-center whitespace-nowrap h-10 bg-transparent text-black text-[14px] px-4 rounded-md hover:bg-black/5 transition-colors">
+                <button className="items-center flex font-bold justify-center overflow-hidden relative text-center whitespace-nowrap h-10 bg-transparent text-black text-[14px] px-4 rounded-md hover:bg-black/5 transition-colors">
                   Thư viện
                 </button>
               </Link>

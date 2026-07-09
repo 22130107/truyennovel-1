@@ -18,15 +18,20 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { url, title, description, imageUrl } = await req.json();
-    if (!url || !title) {
-      return NextResponse.json({ error: "Thiếu URL hoặc tiêu đề" }, { status: 400 });
+    const { url } = await req.json();
+    if (!url) {
+      return NextResponse.json({ error: "Thiếu URL" }, { status: 400 });
     }
+    
+    let title = "Link Affiliate";
+    try {
+      title = new URL(url).hostname;
+    } catch {}
     const id = randomUUID();
     await pool.query(
       `INSERT INTO affiliate_link (id, url, title, description, imageUrl, isActive, updatedAt)
        VALUES (?, ?, ?, ?, ?, 1, NOW())`,
-      [id, url, title, description || null, imageUrl || null]
+      [id, url, title, null, null]
     );
     return NextResponse.json({ success: true, id }, { status: 201 });
   } catch (error) {

@@ -12,14 +12,14 @@ export async function GET(req: NextRequest) {
   try {
     let rows: RowDataPacket[] = [];
 
-    if (tab === "bookmarked") {
-      // Đánh dấu — từ bảng bookmark
+    if (tab === "saved") {
+      // Đã lưu (Theo dõi) — từ bảng bookmark
       [rows] = await pool.query<RowDataPacket[]>(
         `SELECT n.id, n.title, n.slug, n.author, n.coverUrl, n.status,
                 ROUND(COALESCE(AVG(r.score),0),1) AS rating,
                 COUNT(DISTINCT c.id) AS chapterCount,
                 NULL AS lastChapter,
-                'BOOKMARKED' AS libStatus,
+                'SAVED' AS libStatus,
                 b.createdAt AS updatedAt
          FROM bookmark b
          JOIN novel n ON n.id = b.novelId
@@ -49,14 +49,33 @@ export async function GET(req: NextRequest) {
          ORDER BY MAX(p.purchasedAt) DESC`,
         [userId]
       );
+    } else if (tab === "liked") {
+      // Yêu thích — từ bảng liked_novel
+      [rows] = await pool.query<RowDataPacket[]>(
+        `SELECT n.id, n.title, n.slug, n.author, n.coverUrl, n.status,
+                ROUND(COALESCE(AVG(r.score),0),1) AS rating,
+                COUNT(DISTINCT c.id) AS chapterCount,
+                NULL AS lastChapter,
+                'LIKED' AS libStatus,
+                l.createdAt AS updatedAt
+         FROM liked_novel l
+         JOIN novel n ON n.id = l.novelId
+         LEFT JOIN rating r ON r.novelId = n.id
+         LEFT JOIN chapter c ON c.novelId = n.id
+         WHERE l.userId = ?
+         GROUP BY n.id, l.createdAt
+         ORDER BY l.createdAt DESC`,
+        [userId]
+      );
     } else {
+      // reading_progress based tabs
       // reading_progress based tabs
       let statusFilter = "";
       if (tab === "reading") statusFilter = "AND rp.status = 'READING'";
       else if (tab === "completed") statusFilter = "AND rp.status = 'COMPLETED'";
-      else if (tab === "saved") statusFilter = "AND rp.status = 'SAVED'";
-      else if (tab === "liked") statusFilter = "AND rp.status = 'LIKED'";
-      // "all" — no filter, show all reading_progress + bookmarked + purchased
+      
+      // "all" — no filter, show reading_progress + bookmarked + purchased + liked
+
 
       if (tab === "all") {
         // Union: reading_progress + bookmarks + purchased novels

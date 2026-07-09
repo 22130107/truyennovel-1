@@ -35,7 +35,7 @@ export default function AdminChaptersPage() {
 
   const togglePaidStatus = async (chapter: any) => {
     const newIsPaid = !chapter.isPaid;
-    const newPrice = newIsPaid ? 50 : 0;
+    const newPrice = newIsPaid ? 1 : 0;
     
     // Optimistic UI update
     setChapters(chapters.map(ch => ch.id === chapter.id ? { ...ch, isPaid: newIsPaid, price: newPrice } : ch));
@@ -128,9 +128,9 @@ export default function AdminChaptersPage() {
           />
         </div>
         <select className="bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-yellow-400 appearance-none min-w-[150px]">
-          <option value="all">Tất cả thu phí</option>
-          <option value="free">Miễn phí</option>
-          <option value="paid">Trả phí</option>
+          <option value="all">Tất cả (Khóa/Mở)</option>
+          <option value="free">Đang mở</option>
+          <option value="paid">Đã khóa</option>
         </select>
         <button className="flex items-center gap-2 bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl hover:bg-neutral-900 transition-colors">
           <Filter className="w-5 h-5" />
@@ -146,7 +146,7 @@ export default function AdminChaptersPage() {
               <tr className="bg-neutral-900/50">
                 <th className="p-4 text-neutral-400 font-medium text-sm w-16">Chương</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Tên chương</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm text-center">Thu phí</th>
+                <th className="p-4 text-neutral-400 font-medium text-sm text-center">Khóa chương</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Lượt xem</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Trạng thái</th>
                 <th className="p-4 text-neutral-400 font-medium text-sm">Ngày đăng</th>
@@ -169,26 +169,9 @@ export default function AdminChaptersPage() {
                         <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${chapter.isPaid ? 'translate-x-6' : 'translate-x-1'}`} />
                       </button>
                       {chapter.isPaid ? (
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1 bg-[#0a0a0a] border border-yellow-400/30 px-2 py-1 rounded-md min-w-[80px] focus-within:border-yellow-400 transition-colors">
-                            <Coins className="w-4 h-4 text-yellow-400 flex-shrink-0" />
-                            <input 
-                              type="number" 
-                              value={chapter.price}
-                              onChange={(e) => updatePrice(chapter.id, parseInt(e.target.value) || 0)}
-                              className="w-12 bg-transparent text-yellow-400 font-bold focus:outline-none text-center text-sm"
-                            />
-                          </div>
-                          <button 
-                            onClick={() => savePriceToDB(chapter)}
-                            title="Lưu giá"
-                            className="p-1.5 text-emerald-500 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 rounded-md transition-colors"
-                          >
-                            <Check className="w-4 h-4" />
-                          </button>
-                        </div>
+                        <div className="text-yellow-400 text-sm min-w-[80px] text-center ml-2 font-medium">Đã khóa</div>
                       ) : (
-                        <div className="text-neutral-500 text-sm min-w-[80px] text-center ml-2">Miễn phí</div>
+                        <div className="text-neutral-500 text-sm min-w-[80px] text-center ml-2">Mở</div>
                       )}
                     </div>
                   </td>

@@ -15,7 +15,6 @@ export default function AdminEditChapterPage() {
   const [chapterNumber, setChapterNumber] = useState<number | "">("");
   const [content, setContent] = useState("");
   const [isLocked, setIsLocked] = useState(false);
-  const [price, setPrice] = useState<number | "">(0);
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +27,6 @@ export default function AdminEditChapterPage() {
         setChapterNumber(data.chapterNumber ?? "");
         setContent(data.content ?? "");
         setIsLocked(!!data.isLocked);
-        setPrice(data.price ?? 0);
       })
       .catch(() => alert("Không thể tải dữ liệu chương."))
       .finally(() => setIsLoading(false));
@@ -49,7 +47,7 @@ export default function AdminEditChapterPage() {
           content,
           chapterNumber: Number(chapterNumber),
           isLocked,
-          price: isLocked ? Number(price) : 0,
+          price: isLocked ? 1 : 0,
         }),
       });
       const data = await res.json();
@@ -114,10 +112,10 @@ export default function AdminEditChapterPage() {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <label className="block text-sm font-medium text-neutral-400 mb-3">Cài đặt thu phí</label>
+              <label className="block text-sm font-medium text-neutral-400 mb-3">Cài đặt khóa chương</label>
               <div className="flex flex-wrap items-center gap-6 bg-[#0a0a0a] p-4 rounded-xl border border-neutral-800">
                 <div className="flex items-center gap-3">
-                  <span className="text-white text-sm">Chương trả phí?</span>
+                  <span className="text-white text-sm">Khóa chương này?</span>
                   <button
                     onClick={() => setIsLocked(!isLocked)}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isLocked ? "bg-yellow-400" : "bg-neutral-700"}`}
@@ -125,17 +123,6 @@ export default function AdminEditChapterPage() {
                     <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isLocked ? "translate-x-6" : "translate-x-1"}`} />
                   </button>
                 </div>
-                {isLocked && (
-                  <div className="flex items-center gap-3 border-l border-neutral-700 pl-6">
-                    <label className="text-white text-sm">Giá:</label>
-                    <input
-                      type="number"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
-                      className="w-24 bg-[#111] border border-neutral-700 text-yellow-400 font-bold rounded-lg px-3 py-1.5 focus:outline-none focus:border-yellow-400 transition-all text-center"
-                    />
-                  </div>
-                )}
               </div>
             </div>
           </div>

@@ -91,8 +91,8 @@ export function RatingForm({ novelId, onRated }: RatingFormProps) {
               key={star}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill={star <= displayScore ? "#E91E91" : "none"}
-              stroke={star <= displayScore ? "#E91E91" : "currentColor"}
+              fill={star <= displayScore ? "var(--color-pink)" : "none"}
+              stroke={star <= displayScore ? "var(--color-pink)" : "currentColor"}
               strokeWidth="2"
               className="w-7 h-7 cursor-pointer transition-all text-black hover:scale-110"
               onMouseEnter={() => setHovered(star)}

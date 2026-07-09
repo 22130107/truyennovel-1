@@ -51,18 +51,29 @@ export async function GET(
       [realId]
     );
 
-    // Lấy userId từ query param để check đã mua chưa
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
     let purchasedChapterIds = new Set<string>();
+    let has24hUnlock = false;
+
     if (userId) {
-      const chapterIds = chapters.map((c) => c.id);
-      if (chapterIds.length > 0) {
-        const [purchases] = await pool.query<RowDataPacket[]>(
-          `SELECT chapterId FROM purchase WHERE userId = ? AND chapterId IN (?)`,
-          [userId, chapterIds]
-        );
-        purchasedChapterIds = new Set(purchases.map((p) => p.chapterId));
+      // Kiểm tra mở khóa toàn bộ bằng affiliate trong vòng 24h
+      const [unlocks] = await pool.query<RowDataPacket[]>(
+        `SELECT id FROM novel_unlock_affiliate WHERE userId = ? AND novelId = ? AND unlockedAt >= NOW() - INTERVAL 24 HOUR LIMIT 1`,
+        [userId, realId]
+      );
+
+      if (unlocks.length > 0) {
+        has24hUnlock = true;
+      } else {
+        const chapterIds = chapters.map((c) => c.id);
+        if (chapterIds.length > 0) {
+          const [purchases] = await pool.query<RowDataPacket[]>(
+            `SELECT chapterId FROM purchase WHERE userId = ? AND chapterId IN (?)`,
+            [userId, chapterIds]
+          );
+          purchasedChapterIds = new Set(purchases.map((p) => p.chapterId));
+        }
       }
     }
 
@@ -130,7 +141,7 @@ export async function GET(
         number: c.chapterNumber,
         title: c.title,
         isLocked: Boolean(c.isLocked),
-        isPurchased: purchasedChapterIds.has(c.id),
+        isPurchased: has24hUnlock || purchasedChapterIds.has(c.id),
         price: c.price,
         date: new Date(c.createdAt).toLocaleDateString("vi-VN"),
       })),

@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-site: #D3D3D3;
-  --color-pink: #E91E91;
+  --color-dura-1: #F4E8DA;
+  --color-dura-2: #F7E4CE;
+  --color-dura-3: #F8D8B8;
+  --color-dura-4: #F5C49F;
+  --color-dura-5: #F2A77C;
+  
+  --color-site: var(--color-dura-1);
+  --color-pink: var(--color-dura-5);
   --color-black: #000000;
   --color-surface: #ffffff;
   --color-muted: #000000;
@@ -10,7 +16,7 @@
 
 body {
   margin: 0;
-  background-color: #D3D3D3;
+  background-color: #F4E8DA;
 }
 
 @layer base {
@@ -20,22 +26,22 @@ body {
   }
 
   ::-webkit-scrollbar-track {
-    background: #D3D3D3;
+    background: #F4E8DA;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #E91E91;
+    background: linear-gradient(var(--color-dura-4), var(--color-dura-5));
     border-radius: 20px;
-    border: 2px solid #D3D3D3;
+    border: 2px solid var(--color-dura-1);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #c2185b;
+    background: #E59A6F;
   }
 
   html, body {
     scrollbar-width: thin;
-    scrollbar-color: #E91E91 #D3D3D3;
+    scrollbar-color: #F2A77C #F4E8DA;
   }
 }
 
@@ -49,7 +55,7 @@ body {
   }
 
   .bg-site {
-    background-color: #D3D3D3;
+    background-color: #F4E8DA;
   }
 
   .taskskill {
@@ -61,7 +67,7 @@ body {
     font-weight: 600;
     border-radius: 9999px;
     color: white;
-    background-color: #E91E91;
+    background-color: #F2A77C;
   }
 }
 

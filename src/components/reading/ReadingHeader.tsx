@@ -32,20 +32,16 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
     const userId = getUserId();
     if (!userId) return;
 
-    // Check liked (reading_progress status = LIKED)
-    fetch(`/api/library?userId=${userId}&tab=liked`)
+    // Check liked
+    fetch(`/api/novels/${novelId}/like?userId=${userId}`)
       .then((r) => r.json())
-      .then((data: { id: string }[]) => {
-        if (Array.isArray(data)) setLiked(data.some((b) => b.id === novelId));
-      })
+      .then((data) => setLiked(data.liked))
       .catch(() => {});
 
-    // Check saved (reading_progress status = SAVED)
-    fetch(`/api/library?userId=${userId}&tab=saved`)
+    // Check bookmarked
+    fetch(`/api/novels/${novelId}/bookmark?userId=${userId}`)
       .then((r) => r.json())
-      .then((data: { id: string }[]) => {
-        if (Array.isArray(data)) setBookmarked(data.some((b) => b.id === novelId));
-      })
+      .then((data) => setBookmarked(data.bookmarked))
       .catch(() => {});
 
     // Check rating
@@ -60,23 +56,12 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
     if (!userId) return;
     setLoadingLike(true);
     try {
-      if (liked) {
-        // Xóa liked — đổi về READING
-        await fetch("/api/library/progress", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, novelId, status: "READING" }),
-        });
-        setLiked(false);
-      } else {
-        // Upsert với status LIKED
-        await fetch("/api/library/progress", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, novelId, lastChapter: chapterNumber, status: "LIKED" }),
-        });
-        setLiked(true);
-      }
+      await fetch(`/api/novels/${novelId}/like`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+      setLiked(!liked);
     } finally {
       setLoadingLike(false);
     }
@@ -87,23 +72,12 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
     if (!userId) return;
     setLoadingBookmark(true);
     try {
-      if (bookmarked) {
-        // Bỏ lưu — đổi về READING
-        await fetch("/api/library/progress", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, novelId, status: "READING" }),
-        });
-        setBookmarked(false);
-      } else {
-        // Upsert với status SAVED
-        await fetch("/api/library/progress", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, novelId, lastChapter: chapterNumber, status: "SAVED" }),
-        });
-        setBookmarked(true);
-      }
+      await fetch(`/api/novels/${novelId}/bookmark`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+      setBookmarked(!bookmarked);
     } finally {
       setLoadingBookmark(false);
     }

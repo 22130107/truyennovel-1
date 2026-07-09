@@ -10,9 +10,9 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const { userId, chapterId } = await req.json();
+    const { userId, novelId } = await req.json();
 
-    if (!userId || !chapterId) {
+    if (!userId || !novelId) {
       return NextResponse.json({ error: "Thiếu thông tin" }, { status: 400 });
     }
 
@@ -25,33 +25,30 @@ export async function POST(
       return NextResponse.json({ error: "Link affiliate không tồn tại" }, { status: 404 });
     }
 
-    // Kiểm tra chapter có tồn tại
-    const [chapters] = await pool.query<RowDataPacket[]>(
-      `SELECT id FROM chapter WHERE id = ? LIMIT 1`,
-      [chapterId]
+    // Kiểm tra novel có tồn tại
+    const [novels] = await pool.query<RowDataPacket[]>(
+      `SELECT id FROM novel WHERE id = ? LIMIT 1`,
+      [novelId]
     );
-    if (chapters.length === 0) {
-      return NextResponse.json({ error: "Chương không tồn tại" }, { status: 404 });
+    if (novels.length === 0) {
+      return NextResponse.json({ error: "Truyện không tồn tại" }, { status: 404 });
     }
 
-    // Kiểm tra đã mở khóa chưa (qua purchase)
-    const [existing] = await pool.query<RowDataPacket[]>(
-      `SELECT id FROM purchase WHERE userId = ? AND chapterId = ? LIMIT 1`,
-      [userId, chapterId]
-    );
-    if (existing.length > 0) {
-      return NextResponse.json({ success: true, message: "Đã mở khóa trước đó" });
-    }
-
-    // Ghi nhận click affiliate và mở khóa chapter
+    // Ghi nhận mở khóa toàn bộ truyện trong 24h
     const conn = await pool.getConnection();
     try {
       await conn.beginTransaction();
 
-      // Ghi nhận click
+      // Xóa các bản ghi cũ của user cho truyện này (tránh rác)
       await conn.query(
-        `INSERT INTO purchase (id, userId, chapterId, pricePaid, purchasedAt) VALUES (?, ?, ?, 0, NOW())`,
-        [randomUUID(), userId, chapterId]
+        `DELETE FROM novel_unlock_affiliate WHERE userId = ? AND novelId = ?`,
+        [userId, novelId]
+      );
+
+      // Thêm bản ghi mới
+      await conn.query(
+        `INSERT INTO novel_unlock_affiliate (id, userId, novelId, unlockedAt) VALUES (?, ?, ?, NOW())`,
+        [randomUUID(), userId, novelId]
       );
 
       await conn.commit();

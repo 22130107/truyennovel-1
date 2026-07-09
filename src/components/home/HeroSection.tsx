@@ -73,18 +73,18 @@ export function HeroSection() {
           })}
 
           {/* Gradients */}
-          <div className="pointer-events-none absolute inset-0">
+          <div className="pointer-events-none absolute inset-0 z-20">
             <div
-              className="pointer-events-none absolute w-full md:w-[55%] left-0 top-0 bottom-0"
-              style={{ backgroundImage: "linear-gradient(to right, rgba(211,211,211,0.15), rgba(211,211,211,0.08), rgba(211,211,211,0))" }}
+              className="pointer-events-none absolute w-full md:w-[60%] left-0 top-0 bottom-0"
+              style={{ backgroundImage: "linear-gradient(to right, rgba(244,232,218,0.2) 20%, rgba(244,232,218,0.1) 60%, rgba(244,232,218,0))" }}
             />
             <div
-              className="hidden md:block pointer-events-none absolute w-[50%] top-0 right-0 bottom-0"
-              style={{ backgroundImage: "linear-gradient(to left, rgba(211,211,211,0.10), rgba(211,211,211,0.05), rgba(211,211,211,0))" }}
+              className="hidden md:block pointer-events-none absolute w-[30%] top-0 right-0 bottom-0"
+              style={{ backgroundImage: "linear-gradient(to left, rgba(244,232,218,0.15), rgba(244,232,218,0))" }}
             />
             <div
-              className="pointer-events-none absolute h-[50%] md:h-[30%] left-0 right-0 bottom-0"
-              style={{ backgroundImage: "linear-gradient(to top, rgba(211, 211, 211,0.2), rgba(211, 211, 211,0))" }}
+              className="pointer-events-none absolute h-[60%] md:h-[40%] left-0 right-0 bottom-0"
+              style={{ backgroundImage: "linear-gradient(to top, rgba(244,232,218,0.3), rgba(244,232,218,0.1) 60%, rgba(244,232,218,0))" }}
             />
           </div>
 
@@ -94,10 +94,10 @@ export function HeroSection() {
 
               {/* Status badge */}
               <div className="flex items-center gap-2 mb-3">
-                <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${
+                <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded shadow-sm ${
                   current.status === "COMPLETED"
-                    ? "border-green-400 text-green-400"
-                    : "border-yellow-400 text-yellow-400"
+                    ? "bg-green-500 text-white border border-green-600"
+                    : "bg-yellow-500 text-white border border-yellow-600"
                 }`}>
                   {current.status === "COMPLETED" ? "Đã hoàn" : "Đang ra"}
                 </span>
@@ -105,17 +105,26 @@ export function HeroSection() {
               </div>
 
               {/* Title */}
-              <h1 className="font-bold text-[24px] md:text-[38px] leading-tight mb-3 line-clamp-2 drop-shadow-lg">
+              <h1 
+                className="font-bold text-[24px] md:text-[38px] leading-tight mb-3 line-clamp-2"
+                style={{ textShadow: "0 0 10px var(--color-site), 0 0 20px var(--color-site), 0 0 30px var(--color-site), 0 0 40px var(--color-site)" }}
+              >
                 {current.title}
               </h1>
 
               {/* Author */}
-              <p className="text-sm text-black mb-3">
+              <p 
+                className="text-sm text-black mb-3"
+                style={{ textShadow: "0 0 8px var(--color-site), 0 0 16px var(--color-site)" }}
+              >
                 Tác giả: <span className="text-black font-medium">{current.author}</span>
               </p>
 
               {/* Description — 2 dòng rồi ... */}
-              <p className="text-black text-sm leading-relaxed mb-5 hidden md:block overflow-hidden" style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
+              <p 
+                className="text-black text-sm leading-relaxed mb-5 hidden md:block overflow-hidden" 
+                style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', textShadow: "0 0 8px var(--color-site), 0 0 16px var(--color-site)"}}
+              >
                 {current.description}
               </p>
 
@@ -153,8 +162,8 @@ export function HeroSection() {
 
           {/* Bottom fade */}
           <div
-            className="pointer-events-none absolute h-[150px] md:h-[200px] left-0 right-0 bottom-0 z-[3]"
-            style={{ backgroundImage: "linear-gradient(0deg, #D3D3D3, rgba(211, 211, 211,0))" }}
+            className="pointer-events-none absolute h-[150px] md:h-[200px] left-0 right-0 bottom-0 z-20"
+            style={{ backgroundImage: "linear-gradient(0deg, var(--color-site), rgba(244,232,218,0.7) 40%, rgba(244,232,218,0))" }}
           />
         </section>
       </div>

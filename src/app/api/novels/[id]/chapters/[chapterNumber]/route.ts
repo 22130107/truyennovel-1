@@ -54,11 +54,22 @@ export async function GET(
     // Kiểm tra đã mua chưa
     let isPurchased = false;
     if (userId && chapter.isLocked) {
-      const [purchases] = await pool.query<RowDataPacket[]>(
-        `SELECT id FROM purchase WHERE userId = ? AND chapterId = ? LIMIT 1`,
-        [userId, chapter.id]
+      // 1. Kiểm tra mở khóa toàn bộ bằng affiliate trong 24h
+      const [unlocks] = await pool.query<RowDataPacket[]>(
+        `SELECT id FROM novel_unlock_affiliate WHERE userId = ? AND novelId = ? AND unlockedAt >= NOW() - INTERVAL 24 HOUR LIMIT 1`,
+        [userId, novelId]
       );
-      isPurchased = purchases.length > 0;
+      
+      if (unlocks.length > 0) {
+        isPurchased = true;
+      } else {
+        // 2. Kiểm tra mua lẻ chương
+        const [purchases] = await pool.query<RowDataPacket[]>(
+          `SELECT id FROM purchase WHERE userId = ? AND chapterId = ? LIMIT 1`,
+          [userId, chapter.id]
+        );
+        isPurchased = purchases.length > 0;
+      }
     }
 
     // Nếu bị khóa và chưa mua → trả về thông tin nhưng không có content

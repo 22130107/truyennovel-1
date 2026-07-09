@@ -8,9 +8,8 @@ import { useRouter } from "next/navigation";
 const TABS = [
   { key: "reading",   label: "Đang đọc" },
   { key: "completed", label: "Hoàn thành" },
-  { key: "bookmarked",label: "Đánh dấu" },
-  { key: "purchased", label: "Đã mua" },
   { key: "saved",     label: "Đã lưu" },
+  { key: "purchased", label: "Đã mua" },
   { key: "liked",     label: "Yêu thích" },
   { key: "all",       label: "Tất cả" },
 ];
@@ -41,7 +40,6 @@ function getLibStatusBadge(libStatus: string) {
     case "COMPLETED":  return { label: "Hoàn thành", color: "bg-green-500/20 text-green-300 border-green-500/30" };
     case "SAVED":      return { label: "Đã lưu",     color: "bg-purple-500/20 text-purple-300 border-purple-500/30" };
     case "LIKED":      return { label: "Yêu thích",  color: "bg-red-500/20 text-red-300 border-red-500/30" };
-    case "BOOKMARKED": return { label: "Đánh dấu",   color: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30" };
     case "PURCHASED":  return { label: "Đã mua",     color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" };
     default:           return { label: libStatus,    color: "bg-neutral-500/20 text-neutral-300 border-neutral-500/30" };
   }

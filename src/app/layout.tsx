@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { InAppBrowserWarning } from "@/components/common/InAppBrowserWarning";
 
 const SITE_URL = "https://truyenhot.online";
 const SITE_NAME = "Truyện Hot";
@@ -74,6 +75,7 @@ export default function RootLayout({
       <body className="antialiased text-black min-h-screen bg-site flex flex-col">
         <div className="flex-1 flex flex-col">
           <Providers>
+            <InAppBrowserWarning />
             {children}
           </Providers>
         </div>
