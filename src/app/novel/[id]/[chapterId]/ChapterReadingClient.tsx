@@ -163,13 +163,7 @@ export default function ChapterReadingClient() {
                             </p>
                           </div>
                           
-                          <a 
-                            href={link.url}
-                            onClick={(e) => { e.preventDefault(); handleAffiliateClick(link); }}
-                            className="text-[16px] md:text-[20px] font-bold text-black mb-8 hover:underline text-center break-all px-4 max-w-3xl"
-                          >
-                            {link.url}
-                          </a>
+
 
                           <div 
                             onClick={() => handleAffiliateClick(link)}
