@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
 
-const SITE_URL = "https://truyenhot.online";
+const SITE_URL = "https://caytredammy.com";
 
 export const revalidate = 3600; // Tái tạo mỗi 1 giờ
 

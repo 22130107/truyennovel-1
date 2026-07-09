@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Điều khoản và điều kiện sử dụng dịch vụ đọc truyện tại Truyện Hot - Website Tiệm Ăn Vặt.",
   alternates: {
-    canonical: "https://truyenhot.online/terms",
+    canonical: "https://caytredammy.com/terms",
   },
 };
 

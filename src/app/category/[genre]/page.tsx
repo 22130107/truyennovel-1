@@ -3,7 +3,7 @@ import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
 import CategoryClient from "./CategoryClient";
 
-const SITE_URL = "https://truyenhot.online";
+const SITE_URL = "https://caytredammy.com";
 
 interface Props {
   params: Promise<{ genre: string }>;

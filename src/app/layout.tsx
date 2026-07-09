@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { InAppBrowserWarning } from "@/components/common/InAppBrowserWarning";
 
-const SITE_URL = "https://truyenhot.online";
+const SITE_URL = "https://caytredammy.com";
 const SITE_NAME = "Truyện Hot";
 
 export const metadata: Metadata = {

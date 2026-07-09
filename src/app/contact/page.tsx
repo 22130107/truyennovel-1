@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Liên hệ với Truyện Hot qua fanpage Facebook. Chúng tôi luôn sẵn sàng hỗ trợ bạn.",
   alternates: {
-    canonical: "https://truyenhot.online/contact",
+    canonical: "https://caytredammy.com/contact",
   },
 };
 

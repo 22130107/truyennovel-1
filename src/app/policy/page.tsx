@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Chính sách cung cấp dịch vụ của Website Tiệm Ăn Vặt - nền tảng đọc truyện trực tuyến.",
   alternates: {
-    canonical: "https://truyenhot.online/policy",
+    canonical: "https://caytredammy.com/policy",
   },
 };
 

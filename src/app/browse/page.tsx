@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import BrowseClient from "./BrowseClient";
 
-const SITE_URL = "https://truyenhot.online";
+const SITE_URL = "https://caytredammy.com";
 
 export const metadata: Metadata = {
   title: "Tìm Kiếm Truyện - Đọc Truyện Online",

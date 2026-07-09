@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import HomeClient from "./HomeClient";
 
-const SITE_URL = "https://truyenhot.online";
+const SITE_URL = "https://caytredammy.com";
 
 export const metadata: Metadata = {
   title: "Truyện Hot - Đọc Truyện Online Miễn Phí",

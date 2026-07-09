@@ -17,6 +17,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: "https://truyenhot.online/sitemap.xml",
+    sitemap: "https://caytredammy.com/sitemap.xml",
   };
 }

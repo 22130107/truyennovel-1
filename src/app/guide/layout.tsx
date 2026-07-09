@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-const SITE_URL = "https://truyenhot.online";
+const SITE_URL = "https://caytredammy.com";
 
 export const metadata: Metadata = {
   title: "Hướng Dẫn - Truyện Hot",
