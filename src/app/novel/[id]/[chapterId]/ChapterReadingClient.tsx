@@ -48,7 +48,19 @@ export default function ChapterReadingClient() {
   const [unlockError, setUnlockError] = useState("");
 
   const getUserId = () => {
-    try { const raw = localStorage.getItem("user"); return raw ? JSON.parse(raw).id : null; } catch { return null; }
+    try {
+      const raw = localStorage.getItem("user");
+      if (raw) return JSON.parse(raw).id;
+      
+      let guestId = localStorage.getItem("guestId");
+      if (!guestId) {
+        guestId = "guest_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
+        localStorage.setItem("guestId", guestId);
+      }
+      return guestId;
+    } catch {
+      return null;
+    }
   };
 
   const fetchChapter = () => {
@@ -132,6 +144,8 @@ export default function ChapterReadingClient() {
             novelId={novelId}
             chapterNumber={chapter?.chapterNumber ?? parseInt(chapterNum)}
             chapterTitle={chapter?.title ?? ""}
+            prevChapter={chapter?.prevChapter}
+            nextChapter={chapter?.nextChapter}
             onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
           />
           <SettingsPopup isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} settings={settings} onChange={setSettings} />

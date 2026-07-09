@@ -169,7 +169,11 @@ export default function NovelDetailClient() {
                       </div>
                     ) : novel ? (
                       <>
-                        <DetailActionButtons readNowUrl={`/novel/${novel.slug || id}/1`} novelId={id} />
+                        <DetailActionButtons 
+                          readNowUrl={`/novel/${novel.slug || id}/1`} 
+                          readLatestUrl={`/novel/${novel.slug || id}/${novel.chapters?.[novel.chapters.length - 1]?.number || 1}`}
+                          novelId={id} 
+                        />
                         <DetailDescription description={descriptionParagraphs} />
                         <DetailStatistics
                           views={novel.views}

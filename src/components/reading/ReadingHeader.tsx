@@ -1,12 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Logo } from "../home/Logo";
 
 interface ReadingHeaderProps {
   novelId: string;
   chapterNumber: number;
   chapterTitle: string;
+  prevChapter?: number | null;
+  nextChapter?: number | null;
   onToggleSettings: () => void;
 }
 
@@ -17,7 +20,8 @@ function getUserId(): string | null {
   } catch { return null; }
 }
 
-export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSettings }: ReadingHeaderProps) {
+export function ReadingHeader({ novelId, chapterNumber, chapterTitle, prevChapter, nextChapter, onToggleSettings }: ReadingHeaderProps) {
+  const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [userRating, setUserRating] = useState<number | null>(null);
@@ -25,6 +29,12 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
   const [loadingLike, setLoadingLike] = useState(false);
   const [loadingBookmark, setLoadingBookmark] = useState(false);
   const [loadingRating, setLoadingRating] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [chapters, setChapters] = useState<{ number: number; title: string; isLocked: boolean; isPurchased: boolean }[]>([]);
+  const [loadingChapters, setLoadingChapters] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   // Load trạng thái ban đầu
   useEffect(() => {
@@ -100,6 +110,49 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
     }
   };
 
+  // Fetch chapters when opening dropdown
+  useEffect(() => {
+    if (!isOpen || chapters.length > 0) return;
+    setLoadingChapters(true);
+    const userId = getUserId();
+    const url = `/api/novels/${novelId}${userId ? `?userId=${userId}` : ''}`;
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.chapters) {
+          setChapters(data.chapters.map((c: any) => ({
+            number: c.number,
+            title: c.title,
+            isLocked: c.isLocked,
+            isPurchased: c.isPurchased ?? false,
+          })));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoadingChapters(false));
+  }, [isOpen, novelId, chapters.length]);
+
+  // Scroll to active chapter
+  useEffect(() => {
+    if (isOpen && listRef.current && chapters.length > 0) {
+      const activeEl = listRef.current.querySelector('[data-active="true"]') as HTMLElement;
+      if (activeEl) {
+        activeEl.scrollIntoView({ block: 'center' });
+      }
+    }
+  }, [isOpen, chapters]);
+
+  // Close when click outside
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
   return (
     <header className="fixed left-0 top-0 right-0 bg-white/90 backdrop-blur-md border-b-[2px] border-pink z-[50] py-1">
       <div className="w-full px-4 lg:px-8">
@@ -111,11 +164,97 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, onToggleSe
             </Link>
           </div>
 
-          {/* Chapter info */}
-          <div className="flex items-center text-black text-[12px] md:text-[15px] font-medium bg-black/5 px-3 md:px-4 py-1.5 rounded-full border-2 border-pink mx-2 overflow-hidden">
-            <span className="text-pink shrink-0">Chương {chapterNumber}</span>
-            <span className="hidden md:inline mx-3 text-black">|</span>
-            <span className="hidden md:inline text-black truncate max-w-[200px] lg:max-w-[300px]">{chapterTitle}</span>
+          {/* Chapter Navigation */}
+          <div className="flex items-center mx-2" ref={dropdownRef}>
+            {/* Nút lùi */}
+            {prevChapter ? (
+              <Link href={`/novel/${novelId}/${prevChapter}`} className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-pink text-white rounded-full hover:bg-pink/80 shadow-md transition-all hover:scale-105 active:scale-95 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+              </Link>
+            ) : (
+              <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-gray-100 text-gray-300 rounded-full shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+              </div>
+            )}
+
+            {/* Chapter dropdown */}
+            <div className="relative mx-2">
+              <div 
+                onClick={() => setIsOpen((v) => !v)}
+                className="flex items-center justify-center text-black text-[12px] md:text-[15px] font-medium bg-white px-3 md:px-5 py-1.5 md:py-2 rounded-full border-2 border-pink overflow-hidden cursor-pointer hover:bg-pink/5 transition-colors shadow-sm"
+              >
+                <span className="text-pink shrink-0 font-bold">Chương {chapterNumber}</span>
+                <span className="hidden md:inline mx-3 text-gray-300">|</span>
+                <span className="hidden md:inline text-black truncate max-w-[120px] lg:max-w-[250px]">{chapterTitle}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-4 h-4 ml-2 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+                  <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                </svg>
+              </div>
+
+              {isOpen && (
+                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-64 bg-white border-2 border-pink rounded-xl shadow-2xl z-[60] overflow-hidden">
+                  {loadingChapters ? (
+                    <div className="py-6 text-center text-sm text-black">Đang tải...</div>
+                  ) : chapters.length === 0 ? (
+                    <div className="py-6 text-center text-sm text-black">Không có chương</div>
+                  ) : (
+                    <div ref={listRef} className="overflow-y-auto max-h-64 custom-scrollbar">
+                      {chapters.map((ch) => {
+                        const isActive = ch.number === chapterNumber;
+                        return (
+                          <button
+                            key={ch.number}
+                            data-active={isActive}
+                            onClick={() => {
+                              setIsOpen(false);
+                              router.push(`/novel/${novelId}/${ch.number}`);
+                            }}
+                            className={`w-full flex items-center justify-between px-4 py-2.5 text-left text-[13px] transition-colors
+                              ${isActive
+                                ? 'bg-pink/10 text-pink font-semibold'
+                                : 'text-black hover:bg-black/5'
+                              }`}
+                          >
+                            <span className="truncate">
+                              Chương {ch.number}{ch.title ? `: ${ch.title}` : ''}
+                            </span>
+                            {ch.isLocked && !ch.isPurchased && (
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5 text-yellow-400 shrink-0 ml-2">
+                                <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
+                              </svg>
+                            )}
+                            {ch.isLocked && ch.isPurchased && (
+                              <span className="text-[10px] font-semibold text-green-400 border border-green-400/40 rounded px-1 py-0.5 shrink-0 ml-2">
+                                Đã mua
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Nút tiến */}
+            {nextChapter ? (
+              <Link href={`/novel/${novelId}/${nextChapter}`} className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-pink text-white rounded-full hover:bg-pink/80 shadow-md transition-all hover:scale-105 active:scale-95 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </Link>
+            ) : (
+              <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-gray-100 text-gray-300 rounded-full shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </div>
+            )}
           </div>
 
           {/* Actions */}
