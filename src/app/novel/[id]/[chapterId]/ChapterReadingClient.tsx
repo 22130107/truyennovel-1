@@ -184,7 +184,7 @@ export default function ChapterReadingClient() {
                             className="w-full bg-[#c9913c] p-4 md:p-12 cursor-pointer relative flex justify-center group"
                           >
                             <div className="relative max-w-xl md:max-w-2xl w-full transition-transform duration-300 group-hover:scale-[1.02]">
-                              <img src="/click.png" alt="Ấn vào đây để đọc toàn bộ chương truyện" className="w-full h-auto rounded-lg shadow-xl" />
+                              <img src="/click.webp" alt="Ấn vào đây để đọc toàn bộ chương truyện" className="w-full h-auto rounded-lg shadow-xl" />
 
                               {/* Cute Hand Cursor Icon */}
                               <div className="absolute bottom-2 right-4 md:bottom-6 md:right-8 animate-bounce z-10 flex items-center drop-shadow-[0_8px_16px_rgba(255,105,180,0.4)] text-[#ff69b4]">

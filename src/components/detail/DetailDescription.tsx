@@ -8,12 +8,12 @@ interface DetailDescriptionProps {
 export function DetailDescription({ description }: DetailDescriptionProps) {
   return (
     <div>
-      <h2 className="font-semibold mb-4 text-[24px] leading-[32px]">Mô tả</h2>
+      <h2 className="font-semibold mb-4 text-[20px] leading-[28px]">Mô tả</h2>
       <div>
         {description.map((paragraph, index) => (
           <p
             key={index}
-            className="text-justify mb-4 text-muted leading-[26px]"
+            className="text-justify mb-4 text-[15px] text-muted leading-[24px]"
           >
             {paragraph}
           </p>

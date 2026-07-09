@@ -83,25 +83,26 @@ export function DetailActionButtons({ readNowUrl, readLatestUrl, novelId }: Deta
   };
 
   return (
-    <div className="items-center flex flex-wrap justify-start mb-[24px] gap-[12px]">
-      <Link href={readNowUrl} className="block">
-        <button className="items-center flex font-medium justify-center overflow-hidden relative text-center whitespace-nowrap w-full h-12 bg-pink text-white text-[18px] md:text-[20px] gap-[8px] leading-[28px] pt-2 pr-4 pb-2 pl-4 rounded-4xl" style={{"appearance":"button"}}>
-          <span className="block overflow-hidden pointer-events-none absolute text-center left-0 top-0 right-0 bottom-0 rounded-md"></span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 ml-2">
-            <path d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" />
-          </svg>
-          <span className="block text-center ml-[4px]">Đọc Ngay</span>
-        </button>
-      </Link>
-      
-      <Link href={readLatestUrl} className="block">
-        <button className="items-center flex font-medium justify-center overflow-hidden relative text-center whitespace-nowrap w-full h-12 bg-[#ffebf0] border-2 border-pink text-pink hover:bg-pink hover:text-white transition-colors text-[18px] md:text-[20px] gap-[8px] leading-[28px] pt-2 pr-4 pb-2 pl-4 rounded-4xl" style={{"appearance":"button"}}>
-          <ArrowRightToLine className="w-5 h-5 ml-2" />
-          <span className="block text-center ml-[4px]">Tập Mới Nhất</span>
-        </button>
-      </Link>
+    <div className="w-full flex flex-col mb-[24px] gap-[16px]">
+      <div className="flex w-full gap-[12px]">
+        <Link href={readNowUrl} className="flex-1">
+          <button className="w-full flex items-center justify-center font-medium bg-pink text-white text-[15px] md:text-[16px] gap-[4px] h-[40px] rounded-full transition-colors" style={{"appearance":"button"}}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+              <path d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" />
+            </svg>
+            <span>Đọc Ngay</span>
+          </button>
+        </Link>
+        
+        <Link href={readLatestUrl} className="flex-1">
+          <button className="w-full flex items-center justify-center font-medium bg-[#ffebf0] border-2 border-pink text-pink hover:bg-pink hover:text-white transition-colors text-[15px] md:text-[16px] gap-[4px] h-[40px] rounded-full" style={{"appearance":"button"}}>
+            <ArrowRightToLine className="w-4 h-4" />
+            <span>Tập Mới Nhất</span>
+          </button>
+        </Link>
+      </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <div>
           <button onClick={toggleLike} className="items-center flex flex-col font-medium justify-center overflow-hidden relative text-center whitespace-nowrap bg-black/0 text-[14px] gap-[6px] leading-[20px] pt-2 px-3 pb-2 rounded-md hover:bg-black/5 transition-colors" style={{"appearance":"button"}}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-6 h-6 ${isLiked ? 'text-red-500' : 'text-black'}`}>

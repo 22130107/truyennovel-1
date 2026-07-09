@@ -31,7 +31,7 @@ export function DetailSidebar({
           className="block ml-auto mr-auto overflow-clip align-middle w-full aspect-[auto_300_/_400] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,_rgba(0,0,0,0)_0px_0px_0px_0px,_rgba(0,0,0,0.1)_0px_10px_15px_-3px,_rgba(0,0,0,0.1)_0px_4px_6px_-4px] text-black/0 max-w-sm rounded-lg"
         />
         <div className="mt-[24px]">
-          <h1 className="font-bold text-center mb-[40px] text-[36px] leading-[40px]">{title}</h1>
+          <h1 className="font-bold text-center mb-[40px] text-[24px] md:text-[28px] leading-[32px]">{title}</h1>
 
           {/* Người dịch — chỉ hiện khi có */}
           {translator && (

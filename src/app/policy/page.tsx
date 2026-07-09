@@ -92,7 +92,7 @@ export default function PolicyPage() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <img src="/detailimg.png" alt="Chi tiết" className="max-w-full rounded-lg" />
+          <img src="/detailimg.webp" alt="Chi tiết" className="max-w-full rounded-lg" />
         </div>
       </main>
 
