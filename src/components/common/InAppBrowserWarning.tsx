@@ -61,7 +61,7 @@ export function InAppBrowserWarning() {
   };
 
   return (
-    <div className="bg-[#1c2233] w-full px-4 py-3 flex flex-col items-center justify-center border-b border-white/5">
+    <div className="fixed top-0 left-0 right-0 z-[100000] bg-[#1c2233] w-full px-4 py-3 flex flex-col items-center justify-center border-b border-white/10 shadow-2xl">
       <p className="text-gray-200 text-sm text-center max-w-2xl leading-relaxed">
         Đam Mỹ sẽ hoạt động tốt nhất khi được mở bằng trình duyệt trên thiết bị của bạn. Hãy nhấn nút bên dưới để tiếp tục.
       </p>
