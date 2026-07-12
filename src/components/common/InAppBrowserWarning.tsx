@@ -22,31 +22,28 @@ export function InAppBrowserWarning() {
 
   if (!show) return null;
 
-  const handleOpenBrowser = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const [linkRef, setLinkRef] = useState("");
+
+  useEffect(() => {
     const currentUrl = window.location.href;
     const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || "").toLowerCase();
-    
     const isAndroid = ua.indexOf("android") > -1;
     const isIOS = /ipad|iphone|ipod/.test(ua);
 
     if (isAndroid) {
-      // Android: Dùng Intent để ép mở Google Chrome
-      const intentUrl = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
-      window.location.href = intentUrl;
+      setLinkRef(`intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`);
     } else if (isIOS) {
-      // iOS: Thử ép mở bằng Google Chrome nếu máy có cài
-      const chromeUrl = `googlechrome://${currentUrl.replace(/^https?:\/\//, '')}`;
-      window.location.href = chromeUrl;
+      setLinkRef(`googlechromes://${currentUrl.replace(/^https?:\/\//, '')}`);
+    } else {
+      setLinkRef(currentUrl);
     }
-    
-    // Luôn có một Fallback (dự phòng) chạy sau 0.8 giây
-    // Nếu điện thoại không hỗ trợ nhảy tab (vd: iPhone không cài Chrome), nó sẽ tự động copy link
+  }, []);
+
+  const handleFallback = () => {
+    const currentUrl = window.location.href;
     setTimeout(() => {
-      const fallbackAlert = () => {}; // Đã bỏ thông báo nhắc nhấn 3 chấm theo yêu cầu
-      
       if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(currentUrl).catch(fallbackAlert);
+        navigator.clipboard.writeText(currentUrl).catch(() => {});
       } else {
         try {
           const textArea = document.createElement("textarea");
@@ -58,12 +55,9 @@ export function InAppBrowserWarning() {
           textArea.select();
           document.execCommand('copy');
           document.body.removeChild(textArea);
-          // Đã bỏ thông báo "Hệ thống đã sao chép đường dẫn" theo yêu cầu
-        } catch (err) {
-          fallbackAlert();
-        }
+        } catch (err) {}
       }
-    }, 800);
+    }, 1500); // Đợi 1.5s, nếu không chuyển app được thì copy ngầm
   };
 
   return (
@@ -81,13 +75,14 @@ export function InAppBrowserWarning() {
           Đóng
         </button>
         
-        <button 
-          type="button"
-          onClick={handleOpenBrowser}
-          className="py-1.5 px-8 rounded-lg bg-pink-400 text-white text-sm font-medium hover:bg-pink-500 transition-colors shadow-sm"
+        <a 
+          href={linkRef}
+          target="_blank"
+          onClick={handleFallback}
+          className="py-1.5 px-8 rounded-lg bg-pink-400 text-white text-sm font-medium hover:bg-pink-500 transition-colors shadow-sm inline-block"
         >
           Mở trình duyệt
-        </button>
+        </a>
       </div>
     </div>
   );
