@@ -4,30 +4,30 @@ import { Providers } from "./providers";
 import { InAppBrowserWarning } from "@/components/common/InAppBrowserWarning";
 
 const SITE_URL = "https://caytredammy.com";
-const SITE_NAME = "Truyện Hot";
+const SITE_NAME = "Cây Tre Đam Mỹ";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Truyện Hot - Đọc Truyện Online Miễn Phí",
-    template: "%s | Truyện Hot",
+    default: "Cây Tre Đam Mỹ - Đọc Truyện Online Miễn Phí",
+    template: "%s | Cây Tre Đam Mỹ",
   },
   description:
-    "Đọc truyện online miễn phí tại Truyện Hot. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn. Cập nhật nhanh, đọc mượt mà trên mọi thiết bị.",
+    "Đọc truyện online miễn phí tại Cây Tre Đam Mỹ. Kho truyện phong phú: tiên hiệp, kiếm hiệp, đam mỹ, ngôn tình, đô thị, huyền huyễn. Cập nhật nhanh, đọc mượt mà trên mọi thiết bị.",
   keywords: [
     "đọc truyện online",
-    "truyện hot",
+    "cây tre đam mỹ",
+    "truyện đam mỹ",
     "truyện tiên hiệp",
     "truyện kiếm hiệp",
     "truyện ngôn tình",
     "truyện đô thị",
     "truyện huyền huyễn",
     "đọc truyện miễn phí",
-    "truyenhot",
   ],
-  authors: [{ name: "Truyện Hot", url: SITE_URL }],
-  creator: "Truyện Hot",
-  publisher: "Truyện Hot",
+  authors: [{ name: "Cây Tre Đam Mỹ", url: SITE_URL }],
+  creator: "Cây Tre Đam Mỹ",
+  publisher: "Cây Tre Đam Mỹ",
   robots: {
     index: true,
     follow: true,
@@ -44,15 +44,15 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Truyện Hot - Đọc Truyện Online Miễn Phí",
+    title: "Cây Tre Đam Mỹ - Đọc Truyện Online Miễn Phí",
     description:
-      "Đọc truyện online miễn phí tại Truyện Hot. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
+      "Đọc truyện online miễn phí tại Cây Tre Đam Mỹ. Kho truyện phong phú: đam mỹ, tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
   },
   twitter: {
     card: "summary",
-    title: "Truyện Hot - Đọc Truyện Online Miễn Phí",
+    title: "Cây Tre Đam Mỹ - Đọc Truyện Online Miễn Phí",
     description:
-      "Đọc truyện online miễn phí tại Truyện Hot. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
+      "Đọc truyện online miễn phí tại Cây Tre Đam Mỹ. Kho truyện phong phú: đam mỹ, tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
   },
   icons: {
     icon: "/logo.png",

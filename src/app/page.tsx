@@ -4,26 +4,26 @@ import HomeClient from "./HomeClient";
 const SITE_URL = "https://caytredammy.com";
 
 export const metadata: Metadata = {
-  title: "Truyện Hot - Đọc Truyện Online Miễn Phí",
+  title: "Cây Tre Đam Mỹ - Đọc Truyện Online Miễn Phí",
   description:
-    "Đọc truyện online miễn phí tại Truyện Hot. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn. Cập nhật nhanh, đọc mượt mà trên mọi thiết bị.",
+    "Đọc truyện online miễn phí tại Cây Tre Đam Mỹ. Kho truyện phong phú: đam mỹ, tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn. Cập nhật nhanh, đọc mượt mà trên mọi thiết bị.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "Truyện Hot - Đọc Truyện Online Miễn Phí",
+    title: "Cây Tre Đam Mỹ - Đọc Truyện Online Miễn Phí",
     description:
-      "Đọc truyện online miễn phí tại Truyện Hot. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
-    siteName: "Truyện Hot",
+      "Đọc truyện online miễn phí tại Cây Tre Đam Mỹ. Kho truyện phong phú: đam mỹ, tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
+    siteName: "Cây Tre Đam Mỹ",
     locale: "vi_VN",
   },
   twitter: {
     card: "summary",
-    title: "Truyện Hot - Đọc Truyện Online Miễn Phí",
+    title: "Cây Tre Đam Mỹ - Đọc Truyện Online Miễn Phí",
     description:
-      "Đọc truyện online miễn phí tại Truyện Hot. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
+      "Đọc truyện online miễn phí tại Cây Tre Đam Mỹ. Kho truyện phong phú: đam mỹ, tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
   },
 };
 
@@ -32,7 +32,7 @@ export default function HomePage() {
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Truyện Hot",
+    name: "Cây Tre Đam Mỹ",
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
@@ -43,10 +43,10 @@ export default function HomePage() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Truyện Hot",
+    name: "Cây Tre Đam Mỹ",
     url: SITE_URL,
     description:
-      "Đọc truyện online miễn phí. Kho truyện phong phú: tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
+      "Đọc truyện online miễn phí. Kho truyện phong phú: đam mỹ, tiên hiệp, kiếm hiệp, ngôn tình, đô thị, huyền huyễn.",
     inLanguage: "vi",
     potentialAction: {
       "@type": "SearchAction",
