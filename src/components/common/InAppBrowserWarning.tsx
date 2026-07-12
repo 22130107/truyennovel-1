@@ -61,27 +61,25 @@ export function InAppBrowserWarning() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="bg-[#1e2334] rounded-[20px] p-6 w-full max-w-sm text-center shadow-2xl flex flex-col gap-6 border border-white/10">
-        <p className="text-white text-[15px] leading-relaxed font-medium mt-2">
-          Đam Mỹ sẽ hoạt động tốt nhất khi được mở bằng trình duyệt trên thiết bị của bạn. Hãy nhấn nút bên dưới để tiếp tục.
-        </p>
+    <div className="bg-[#1c2233] w-full px-4 py-3 flex flex-col items-center justify-center border-b border-white/5">
+      <p className="text-gray-200 text-sm text-center max-w-2xl leading-relaxed">
+        Đam Mỹ sẽ hoạt động tốt nhất khi được mở bằng trình duyệt trên thiết bị của bạn. Hãy nhấn nút bên dưới để tiếp tục.
+      </p>
+      
+      <div className="flex items-center gap-3 mt-3">
+        <button 
+          onClick={() => setShow(false)}
+          className="py-1.5 px-8 rounded-lg border border-white/20 text-gray-200 text-sm font-medium hover:bg-white/5 transition-colors"
+        >
+          Đóng
+        </button>
         
-        <div className="grid grid-cols-2 gap-3 mt-2">
-          <button 
-            onClick={() => setShow(false)}
-            className="py-3 px-4 rounded-xl border border-[#3a4154] text-white font-medium hover:bg-white/5 transition-colors"
-          >
-            Đóng
-          </button>
-          
-          <button 
-            onClick={handleOpenBrowser}
-            className="py-3 px-4 rounded-xl bg-[#ff90aa] text-white font-semibold hover:bg-[#ff7a98] transition-colors shadow-lg shadow-[#ff90aa]/20"
-          >
-            Mở trình duyệt
-          </button>
-        </div>
+        <button 
+          onClick={handleOpenBrowser}
+          className="py-1.5 px-8 rounded-lg bg-[#f6a5b6] text-white text-sm font-medium hover:bg-[#e595a6] transition-colors shadow-sm"
+        >
+          Mở trình duyệt
+        </button>
       </div>
     </div>
   );

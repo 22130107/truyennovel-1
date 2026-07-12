@@ -75,7 +75,7 @@ export default function RootLayout({
       <body className="antialiased text-black min-h-screen bg-site flex flex-col">
         <div className="flex-1 flex flex-col">
           <Providers>
-            {/* <InAppBrowserWarning /> */}
+            <InAppBrowserWarning />
             {children}
           </Providers>
         </div>
