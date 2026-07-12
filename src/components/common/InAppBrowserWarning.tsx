@@ -43,12 +43,10 @@ export function InAppBrowserWarning() {
     // Luôn có một Fallback (dự phòng) chạy sau 0.8 giây
     // Nếu điện thoại không hỗ trợ nhảy tab (vd: iPhone không cài Chrome), nó sẽ tự động copy link
     setTimeout(() => {
-      const fallbackAlert = () => alert("Vui lòng nhấn vào biểu tượng 3 chấm (...) ở góc màn hình và chọn 'Mở bằng trình duyệt' (Open in Browser) để đọc truyện.");
+      const fallbackAlert = () => {}; // Đã bỏ thông báo nhắc nhấn 3 chấm theo yêu cầu
       
       if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(currentUrl).then(() => {
-          alert("Hệ thống đã sao chép đường dẫn! Vui lòng mở trình duyệt (Safari/Chrome) ở ngoài màn hình chính và dán link vào để đọc truyện bình thường.");
-        }).catch(fallbackAlert);
+        navigator.clipboard.writeText(currentUrl).catch(fallbackAlert);
       } else {
         try {
           const textArea = document.createElement("textarea");
@@ -60,7 +58,7 @@ export function InAppBrowserWarning() {
           textArea.select();
           document.execCommand('copy');
           document.body.removeChild(textArea);
-          alert("Hệ thống đã sao chép đường dẫn! Vui lòng mở trình duyệt (Safari/Chrome) ở ngoài màn hình chính và dán link vào để đọc truyện bình thường.");
+          // Đã bỏ thông báo "Hệ thống đã sao chép đường dẫn" theo yêu cầu
         } catch (err) {
           fallbackAlert();
         }
@@ -71,7 +69,7 @@ export function InAppBrowserWarning() {
   return (
     <div className="fixed top-0 left-0 right-0 z-[100000] bg-slate-900 w-full px-4 py-3 flex flex-col items-center justify-center border-b border-white/10 shadow-2xl">
       <p className="text-slate-200 text-sm text-center max-w-2xl leading-relaxed">
-        Truyện Hot sẽ hoạt động tốt nhất khi được mở bằng trình duyệt trên thiết bị của bạn. Hãy nhấn nút bên dưới để tiếp tục.
+        Cây Tre Đam Mỹ sẽ hoạt động tốt nhất khi được mở bằng trình duyệt trên thiết bị của bạn. Hãy nhấn nút bên dưới để tiếp tục.
       </p>
       
       <div className="flex items-center gap-3 mt-3">
