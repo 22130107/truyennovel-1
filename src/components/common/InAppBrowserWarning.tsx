@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react';
 
 export function InAppBrowserWarning() {
   const [show, setShow] = useState(false);
+  const [linkRef, setLinkRef] = useState("");
 
   useEffect(() => {
+    const currentUrl = window.location.href;
     const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || "").toLowerCase();
     
     // Detect Facebook (fban/fbav), Zalo, Instagram, Messenger, TikTok, etc.
@@ -18,15 +20,7 @@ export function InAppBrowserWarning() {
     if (isFB || isZalo || isInsta || isMessenger || isTikTok) {
       setShow(true);
     }
-  }, []);
 
-  if (!show) return null;
-
-  const [linkRef, setLinkRef] = useState("");
-
-  useEffect(() => {
-    const currentUrl = window.location.href;
-    const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || "").toLowerCase();
     const isAndroid = ua.indexOf("android") > -1;
     const isIOS = /ipad|iphone|ipod/.test(ua);
 
@@ -38,18 +32,9 @@ export function InAppBrowserWarning() {
     } else {
       setLinkRef(currentUrl);
     }
-
-    // Xác định xem có đang mở trong FB/Zalo không để hiện thông báo
-    const isFB = ua.indexOf("fban") > -1 || ua.indexOf("fbav") > -1;
-    const isZalo = ua.indexOf("zalo") > -1;
-    const isInsta = ua.indexOf("instagram") > -1;
-    const isMessenger = ua.indexOf("messenger") > -1 || ua.indexOf("fb_iab") > -1;
-    const isTikTok = ua.indexOf("tiktok") > -1;
-    
-    if (isFB || isZalo || isInsta || isMessenger || isTikTok) {
-      setShow(true);
-    }
   }, []);
+
+  if (!show) return null;
 
   const handleFallback = () => {
     const currentUrl = window.location.href;
