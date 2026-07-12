@@ -30,12 +30,24 @@ export function InAppBrowserWarning() {
     const isAndroid = ua.indexOf("android") > -1;
     const isIOS = /ipad|iphone|ipod/.test(ua);
 
+    // Xử lý tạo link ép chuyển app
     if (isAndroid) {
       setLinkRef(`intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`);
     } else if (isIOS) {
       setLinkRef(`googlechromes://${currentUrl.replace(/^https?:\/\//, '')}`);
     } else {
       setLinkRef(currentUrl);
+    }
+
+    // Xác định xem có đang mở trong FB/Zalo không để hiện thông báo
+    const isFB = ua.indexOf("fban") > -1 || ua.indexOf("fbav") > -1;
+    const isZalo = ua.indexOf("zalo") > -1;
+    const isInsta = ua.indexOf("instagram") > -1;
+    const isMessenger = ua.indexOf("messenger") > -1 || ua.indexOf("fb_iab") > -1;
+    const isTikTok = ua.indexOf("tiktok") > -1;
+    
+    if (isFB || isZalo || isInsta || isMessenger || isTikTok) {
+      setShow(true);
     }
   }, []);
 
