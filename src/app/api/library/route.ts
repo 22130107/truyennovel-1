@@ -87,7 +87,7 @@ export async function GET(req: NextRequest) {
                   rp.status AS libStatus,
                   rp.updatedAt
            FROM reading_progress rp
-           JOIN novel n ON n.id = rp.novelId
+           JOIN novel n ON (n.id = rp.novelId OR n.slug = rp.novelId)
            LEFT JOIN rating r ON r.novelId = n.id
            LEFT JOIN chapter c ON c.novelId = n.id
            WHERE rp.userId = ?
@@ -104,7 +104,7 @@ export async function GET(req: NextRequest) {
                   rp.status AS libStatus,
                   rp.updatedAt
            FROM reading_progress rp
-           JOIN novel n ON n.id = rp.novelId
+           JOIN novel n ON (n.id = rp.novelId OR n.slug = rp.novelId)
            LEFT JOIN rating r ON r.novelId = n.id
            LEFT JOIN chapter c ON c.novelId = n.id
            WHERE rp.userId = ? ${statusFilter}

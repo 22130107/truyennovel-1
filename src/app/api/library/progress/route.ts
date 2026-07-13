@@ -17,10 +17,10 @@ export async function POST(req: NextRequest) {
       `INSERT INTO reading_progress (id, userId, novelId, lastChapter, status, updatedAt)
        VALUES (?, ?, ?, ?, ?, NOW(3))
        ON DUPLICATE KEY UPDATE
-         lastChapter = GREATEST(lastChapter, VALUES(lastChapter)),
-         status = VALUES(status),
+         lastChapter = GREATEST(lastChapter, ?),
+         status = ?,
          updatedAt = NOW(3)`,
-      [crypto.randomUUID(), userId, novelId, lastChapter, libStatus]
+      [crypto.randomUUID(), userId, novelId, lastChapter, libStatus, lastChapter, libStatus]
     );
 
     return NextResponse.json({ ok: true });

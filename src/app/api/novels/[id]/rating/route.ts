@@ -73,8 +73,8 @@ export async function POST(
   await pool.query(
     `INSERT INTO rating (id, userId, novelId, score, comment, createdAt)
      VALUES (?, ?, ?, ?, ?, NOW(3))
-     ON DUPLICATE KEY UPDATE score = VALUES(score), comment = VALUES(comment)`,
-    [crypto.randomUUID(), userId, novelId, score, comment?.trim() || null]
+     ON DUPLICATE KEY UPDATE score = ?, comment = ?`,
+    [crypto.randomUUID(), userId, novelId, score, comment?.trim() || null, score, comment?.trim() || null]
   );
   return NextResponse.json({ ok: true, score });
 }

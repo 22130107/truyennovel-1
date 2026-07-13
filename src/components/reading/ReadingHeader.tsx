@@ -265,9 +265,11 @@ export function ReadingHeader({ novelId, chapterNumber, chapterTitle, prevChapte
               title="Cài đặt giao diện"
               className="p-1.5 md:p-2 text-black hover:text-pink transition-all"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 21L15.75 9.75M4.5 19.5L10.5 6L14.25 15M18.75 18L15 9.75L11.25 18M21 19.5H3" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15h7.5" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 md:w-6 md:h-6">
+                <path d="M21 14h-5" />
+                <path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16" />
+                <path d="M4.5 13h6" />
+                <path d="M3 16l4.5-9 4.5 9" />
               </svg>
             </button>
 
