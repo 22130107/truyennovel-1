@@ -9,7 +9,7 @@ interface DetailSidebarProps {
   author: string;
   status: string;
   chapters: number;
-  genre: string;
+  genres: string[];
 }
 
 export function DetailSidebar({
@@ -20,7 +20,7 @@ export function DetailSidebar({
   author,
   status,
   chapters,
-  genre
+  genres
 }: DetailSidebarProps) {
   return (
     <div className="bg-white rounded-bl-2xl rounded-br-2xl rounded-tl-2xl rounded-tr-[4rem] shadow-2xl pt-10 pr-4 pb-4 pl-4">
@@ -73,13 +73,19 @@ export function DetailSidebar({
 
           {/* Thể loại */}
           <div className="flex mt-[16px]">
-            <div className="items-center flex flex-wrap overflow-hidden mb-[24px] text-[15px] md:text-[16px] gap-[8px] leading-[24px]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-[rgb(107,_114,_128)]">
-                <path fillRule="evenodd" d="M5.25 2.25a3 3 0 00-3 3v4.318a3 3 0 00.879 2.121l9.58 9.581c.92.92 2.39.92 3.31 0l4.318-4.317c.92-.92.92-2.39 0-3.31l-9.581-9.58a3 3 0 00-2.122-.879H5.25zM6.375 7.5a1.125 1.125 0 11-2.25 0 1.125 1.125 0 012.25 0z" clipRule="evenodd" />
-              </svg>
-              Thể loại
-              <div className="items-center border flex font-semibold bg-gray-200 border-pink text-[14px] leading-[20px] pt-[2px] pr-[10px] pb-[2px] pl-[10px] rounded-[624.9375rem]">
-                {genre}
+            <div className="items-start flex flex-wrap overflow-hidden mb-[24px] text-[15px] md:text-[16px] gap-[8px] leading-[24px]">
+              <div className="flex items-center gap-1 shrink-0 mt-[2px]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-[rgb(107,_114,_128)]">
+                  <path fillRule="evenodd" d="M5.25 2.25a3 3 0 00-3 3v4.318a3 3 0 00.879 2.121l9.58 9.581c.92.92 2.39.92 3.31 0l4.318-4.317c.92-.92.92-2.39 0-3.31l-9.581-9.58a3 3 0 00-2.122-.879H5.25zM6.375 7.5a1.125 1.125 0 11-2.25 0 1.125 1.125 0 012.25 0z" clipRule="evenodd" />
+                </svg>
+                Thể loại
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {genres.map((g, idx) => (
+                  <div key={idx} className="items-center border flex font-semibold bg-gray-200 border-pink text-[14px] leading-[20px] pt-[2px] pr-[10px] pb-[2px] pl-[10px] rounded-[624.9375rem]">
+                    {g}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

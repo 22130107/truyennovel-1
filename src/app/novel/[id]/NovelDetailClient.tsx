@@ -153,7 +153,7 @@ export default function NovelDetailClient() {
                         author={novel.author}
                         status={statusLabel}
                         chapters={novel.chapterCount}
-                        genre={novel.genres[0] || "Chưa phân loại"}
+                        genres={novel.genres && novel.genres.length > 0 ? novel.genres : ["Chưa phân loại"]}
                       />
                     ) : null}
                   </div>
