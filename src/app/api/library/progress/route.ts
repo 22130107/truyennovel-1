@@ -39,9 +39,11 @@ export async function PATCH(req: NextRequest) {
     }
 
     await pool.query(
-      `UPDATE reading_progress SET status = ?, updatedAt = NOW(3)
-       WHERE userId = ? AND novelId = ?`,
-      [status, userId, novelId]
+      `UPDATE reading_progress rp
+       JOIN novel n ON (n.id = rp.novelId OR n.slug = rp.novelId)
+       SET rp.status = ?, rp.updatedAt = NOW(3)
+       WHERE rp.userId = ? AND (n.id = ? OR n.slug = ?)`,
+      [status, userId, novelId, novelId]
     );
 
     return NextResponse.json({ ok: true });
@@ -61,8 +63,10 @@ export async function DELETE(req: NextRequest) {
     }
 
     await pool.query(
-      `DELETE FROM reading_progress WHERE userId = ? AND novelId = ?`,
-      [userId, novelId]
+      `DELETE rp FROM reading_progress rp
+       JOIN novel n ON (n.id = rp.novelId OR n.slug = rp.novelId)
+       WHERE rp.userId = ? AND (n.id = ? OR n.slug = ?)`,
+      [userId, novelId, novelId]
     );
 
     return NextResponse.json({ ok: true });
