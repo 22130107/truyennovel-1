@@ -76,49 +76,49 @@ export default function AdminEditChapterPage() {
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link href={`/admin/novels/${novelId}/chapters`} className="p-2 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white">
+        <Link href={`/admin/novels/${novelId}/chapters`} className="p-2 hover:bg-white rounded-xl transition-colors text-black">
           <ArrowLeft className="w-6 h-6" />
         </Link>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Sửa chương</h1>
-          <p className="text-neutral-400 mt-1">Chỉnh sửa nội dung chương truyện.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">Sửa chương</h1>
+          <p className="text-black mt-1">Chỉnh sửa nội dung chương truyện.</p>
         </div>
       </div>
 
-      <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6 md:p-8">
+      <div className="bg-white border border-dura-3 rounded-2xl p-6 md:p-8 shadow-sm">
         <div className="space-y-8">
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-neutral-400">Số chương <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-black">Số chương <span className="text-red-500">*</span></label>
               <input
                 type="number"
                 placeholder="VD: 1, 2, 3..."
                 value={chapterNumber}
                 onChange={(e) => setChapterNumber(e.target.value === "" ? "" : Number(e.target.value))}
-                className="w-full bg-[#0a0a0a] border border-neutral-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/50 transition-all"
+                className="w-full bg-white border border-dura-3 text-black rounded-xl px-4 py-3 focus:outline-none focus:border-dura-5 focus:ring-1 focus:ring-dura-5/50 transition-all shadow-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-neutral-400">Tên chương <span className="text-neutral-600 text-xs">(không bắt buộc)</span></label>
+              <label className="block text-sm font-medium text-black">Tên chương <span className="text-black text-xs">(không bắt buộc)</span></label>
               <input
                 type="text"
                 placeholder="Nhập tên chương..."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full bg-[#0a0a0a] border border-neutral-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/50 transition-all"
+                className="w-full bg-white border border-dura-3 text-black rounded-xl px-4 py-3 focus:outline-none focus:border-dura-5 focus:ring-1 focus:ring-dura-5/50 transition-all shadow-sm"
               />
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <label className="block text-sm font-medium text-neutral-400 mb-3">Cài đặt khóa chương</label>
-              <div className="flex flex-wrap items-center gap-6 bg-[#0a0a0a] p-4 rounded-xl border border-neutral-800">
+              <label className="block text-sm font-medium text-black mb-3">Cài đặt khóa chương</label>
+              <div className="flex flex-wrap items-center gap-6 bg-white p-4 rounded-xl border border-dura-3 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <span className="text-white text-sm">Khóa chương này?</span>
+                  <span className="text-black text-sm">Khóa chương này?</span>
                   <button
                     onClick={() => setIsLocked(!isLocked)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isLocked ? "bg-yellow-400" : "bg-neutral-700"}`}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isLocked ? "bg-dura-5" : "bg-slate-300"}`}
                   >
                     <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isLocked ? "translate-x-6" : "translate-x-1"}`} />
                   </button>
@@ -129,7 +129,7 @@ export default function AdminEditChapterPage() {
 
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <label className="block text-sm font-medium text-neutral-400">Nội dung chương <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-black">Nội dung chương <span className="text-red-500">*</span></label>
               <div>
                 <input
                   type="file"
@@ -153,7 +153,7 @@ export default function AdminEditChapterPage() {
                 />
                 <label
                   htmlFor="word-import"
-                  className="text-xs flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-lg cursor-pointer transition-colors"
+                  className="text-xs flex items-center gap-1.5 px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-black rounded-lg cursor-pointer transition-colors"
                 >
                   <UploadCloud className="w-3.5 h-3.5" />
                   Nhập từ file Word
@@ -165,19 +165,19 @@ export default function AdminEditChapterPage() {
               placeholder="Nội dung chương..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full bg-[#0a0a0a] border border-neutral-800 text-white rounded-xl px-4 py-4 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/50 transition-all leading-relaxed"
+              className="w-full bg-white border border-dura-3 text-black rounded-xl px-4 py-4 focus:outline-none focus:border-dura-5 focus:ring-1 focus:ring-dura-5/50 transition-all leading-relaxed shadow-sm"
             />
           </div>
 
           {/* Actions */}
-          <div className="pt-6 border-t border-neutral-800 flex justify-end gap-4">
-            <Link href={`/admin/novels/${novelId}/chapters`} className="px-6 py-3 rounded-xl border border-neutral-800 text-white font-medium hover:bg-neutral-800 transition-colors">
+          <div className="pt-6 border-t border-dura-3 flex justify-end gap-4">
+            <Link href={`/admin/novels/${novelId}/chapters`} className="px-6 py-3 rounded-xl border border-dura-3 bg-white text-black font-medium hover:bg-site transition-colors">
               Hủy bỏ
             </Link>
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-xl font-medium transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 bg-dura-5 hover:bg-dura-4 text-white px-6 py-3 rounded-xl font-medium transition-colors disabled:opacity-50"
             >
               <Save className="w-5 h-5" />
               {isSaving ? "Đang lưu..." : "Lưu thay đổi"}

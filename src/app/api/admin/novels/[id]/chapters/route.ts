@@ -65,7 +65,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     const id = crypto.randomUUID();
 
-    const finalTitle = title?.trim() || null;
+    const finalTitle = title?.trim() || "";
 
     const connection = await pool.getConnection();
     try {

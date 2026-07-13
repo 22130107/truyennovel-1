@@ -72,12 +72,12 @@ export default function AdminSettingsPage() {
   };
 
   const inputClass =
-    "w-full bg-[#0a0a0a] border border-neutral-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/50 transition-all";
+    "w-full bg-white border border-dura-3 text-black rounded-xl px-4 py-3 focus:outline-none focus:border-dura-5 focus:ring-1 focus:ring-dura-5/50 transition-all";
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-6 h-6 text-yellow-400 animate-spin" />
+        <Loader2 className="w-6 h-6 text-dura-5 animate-spin" />
       </div>
     );
   }
@@ -97,22 +97,22 @@ export default function AdminSettingsPage() {
 
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Cài đặt Hệ thống</h1>
-        <p className="text-neutral-400 mt-1">Cấu hình tỷ giá quy đổi và thông tin tài khoản nhận tiền nạp.</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">Cài đặt Hệ thống</h1>
+        <p className="text-black mt-1">Cấu hình tỷ giá quy đổi và thông tin tài khoản nhận tiền nạp.</p>
       </div>
 
-      <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6 md:p-8 space-y-8">
+      <div className="bg-white border border-dura-3 rounded-2xl p-6 md:p-8 space-y-8">
 
         {/* Exchange Rate */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 pb-4 border-b border-neutral-800">
-            <Banknote className="w-5 h-5 text-yellow-400" />
-            <h2 className="text-xl font-bold text-white">Tỷ giá Quy đổi (VNĐ sang Coin)</h2>
+          <div className="flex items-center gap-2 pb-4 border-b border-dura-3">
+            <Banknote className="w-5 h-5 text-dura-5" />
+            <h2 className="text-xl font-bold text-black">Tỷ giá Quy đổi (VNĐ sang Coin)</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-neutral-400 mb-2">Tỷ giá mặc định</label>
+              <label className="block text-sm font-medium text-black mb-2">Tỷ giá mặc định</label>
               <div className="flex items-center gap-3">
                 <input
                   type="number"
@@ -121,14 +121,14 @@ export default function AdminSettingsPage() {
                   onChange={(e) => setForm({ ...form, exchange_rate: e.target.value })}
                   className={inputClass}
                 />
-                <span className="text-neutral-400 whitespace-nowrap">VNĐ = 1 Coin</span>
+                <span className="text-black whitespace-nowrap">VNĐ = 1 Coin</span>
               </div>
-              <p className="text-xs text-neutral-500 mt-1">
+              <p className="text-xs text-black mt-1">
                 VD: 1000 → 20.000đ = 20 coin
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-neutral-400 mb-2">Khuyến mãi nạp thêm (%)</label>
+              <label className="block text-sm font-medium text-black mb-2">Khuyến mãi nạp thêm (%)</label>
               <input
                 type="number"
                 min="0"
@@ -137,7 +137,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) => setForm({ ...form, bonus_percent: e.target.value })}
                 className={inputClass}
               />
-              <p className="text-xs text-neutral-500 mt-1">
+              <p className="text-xs text-black mt-1">
                 VD: 10 → nạp 20 coin được thêm 2 coin bonus
               </p>
             </div>
@@ -146,15 +146,15 @@ export default function AdminSettingsPage() {
 
         {/* Bank Account */}
         <div className="space-y-6 pt-6">
-          <div className="flex items-center gap-2 pb-4 border-b border-neutral-800">
-            <CreditCard className="w-5 h-5 text-yellow-400" />
-            <h2 className="text-xl font-bold text-white">Thông tin Nhận tiền (Chủ sở hữu)</h2>
+          <div className="flex items-center gap-2 pb-4 border-b border-dura-3">
+            <CreditCard className="w-5 h-5 text-dura-5" />
+            <h2 className="text-xl font-bold text-black">Thông tin Nhận tiền (Chủ sở hữu)</h2>
           </div>
 
           <div className="grid grid-cols-1 gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-2 flex items-center gap-2">
+                <label className="block text-sm font-medium text-black mb-2 flex items-center gap-2">
                   <Building2 className="w-4 h-4" />
                   Ngân hàng thụ hưởng
                 </label>
@@ -170,7 +170,7 @@ export default function AdminSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-2 flex items-center gap-2">
+                <label className="block text-sm font-medium text-black mb-2 flex items-center gap-2">
                   <CreditCard className="w-4 h-4" />
                   Số tài khoản
                 </label>
@@ -185,7 +185,7 @@ export default function AdminSettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-400 mb-2 flex items-center gap-2">
+              <label className="block text-sm font-medium text-black mb-2 flex items-center gap-2">
                 <UserCircle2 className="w-4 h-4" />
                 Tên chủ tài khoản
               </label>
@@ -196,13 +196,13 @@ export default function AdminSettingsPage() {
                 placeholder="VD: TRINH HUU HUYNH"
                 className={inputClass + " uppercase"}
               />
-              <p className="text-xs text-neutral-500 mt-1">Nhập IN HOA, đúng tên trên tài khoản ngân hàng</p>
+              <p className="text-xs text-black mt-1">Nhập IN HOA, đúng tên trên tài khoản ngân hàng</p>
             </div>
 
             {/* Preview QR */}
             {form.bank_account && form.bank_name && (
               <div className="bg-neutral-900 border border-neutral-700 rounded-xl p-4">
-                <p className="text-xs text-neutral-400 mb-3 font-medium uppercase tracking-wider">Xem trước QR mẫu</p>
+                <p className="text-xs text-black mb-3 font-medium uppercase tracking-wider">Xem trước QR mẫu</p>
                 <div className="flex items-center gap-4">
                   <img
                     src={`https://img.vietqr.io/image/${form.bank_id}-${form.bank_account}-compact2.png?amount=20000&addInfo=PREVIEW&accountName=${encodeURIComponent(form.bank_name)}`}
@@ -210,9 +210,9 @@ export default function AdminSettingsPage() {
                     className="w-28 h-28 rounded-lg bg-white p-1"
                   />
                   <div className="text-sm space-y-1">
-                    <p className="text-neutral-400">Ngân hàng: <span className="text-white font-medium">{BANK_OPTIONS.find(b => b.value === form.bank_id)?.label}</span></p>
-                    <p className="text-neutral-400">Số TK: <span className="text-white font-mono">{form.bank_account}</span></p>
-                    <p className="text-neutral-400">Chủ TK: <span className="text-white">{form.bank_name}</span></p>
+                    <p className="text-black">Ngân hàng: <span className="text-black font-medium">{BANK_OPTIONS.find(b => b.value === form.bank_id)?.label}</span></p>
+                    <p className="text-black">Số TK: <span className="text-black font-mono">{form.bank_account}</span></p>
+                    <p className="text-black">Chủ TK: <span className="text-black">{form.bank_name}</span></p>
                   </div>
                 </div>
               </div>
@@ -220,11 +220,11 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-neutral-800 flex justify-end">
+        <div className="pt-6 border-t border-dura-3 flex justify-end">
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 disabled:opacity-60 text-black px-6 py-3 rounded-xl font-medium transition-colors"
+            className="flex items-center gap-2 bg-dura-5 hover:bg-dura-4 disabled:opacity-60 text-white px-6 py-3 rounded-xl font-medium transition-colors"
           >
             {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
             {saving ? "Đang lưu..." : "Lưu cài đặt"}

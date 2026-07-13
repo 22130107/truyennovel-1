@@ -43,7 +43,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
             price = ?,
             updatedAt = NOW()
            WHERE id = ?`,
-          [chapterNumber ?? null, title?.trim() || null, content ?? null, isLocked ? 1 : 0, price || 0, cId]
+          [chapterNumber ?? null, title?.trim() || "", content ?? null, isLocked ? 1 : 0, price || 0, cId]
         );
       } else {
         await connection.query(

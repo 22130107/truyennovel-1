@@ -32,8 +32,8 @@ const STATUS_LABEL: Record<string, string> = {
 const STATUS_STYLE: Record<string, string> = {
   COMPLETED: "bg-emerald-500/10 text-emerald-500",
   FAILED: "bg-red-500/10 text-red-500",
-  PENDING: "bg-yellow-500/10 text-yellow-400",
-  CANCELLED: "bg-neutral-500/10 text-neutral-400",
+  PENDING: "bg-yellow-500/10 text-dura-5",
+  CANCELLED: "bg-neutral-500/10 text-black",
 };
 
 function formatMoney(amount: number) {
@@ -120,17 +120,17 @@ export default function AdminTransactionsPage() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Lịch sử Nạp Coin</h1>
-        <p className="text-neutral-400 mt-1">Lịch sử giao dịch nạp Coin từ cổng thanh toán tự động.</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">Lịch sử Nạp Coin</h1>
+        <p className="text-black mt-1">Lịch sử giao dịch nạp Coin từ cổng thanh toán tự động.</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6">
+        <div className="bg-white border border-dura-3 rounded-2xl p-6">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-neutral-400 text-sm font-medium">Doanh thu hôm nay</p>
-              <h3 className="text-2xl font-bold text-white mt-2">
+              <p className="text-black text-sm font-medium">Doanh thu hôm nay</p>
+              <h3 className="text-2xl font-bold text-black mt-2">
                 {formatMoney(summary.todayRevenue)}
               </h3>
             </div>
@@ -139,27 +139,27 @@ export default function AdminTransactionsPage() {
             </div>
           </div>
         </div>
-        <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6">
+        <div className="bg-white border border-dura-3 rounded-2xl p-6">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-neutral-400 text-sm font-medium">Giao dịch thành công hôm nay</p>
-              <h3 className="text-2xl font-bold text-yellow-400 mt-2">
+              <p className="text-black text-sm font-medium">Giao dịch thành công hôm nay</p>
+              <h3 className="text-2xl font-bold text-dura-5 mt-2">
                 {summary.todaySuccess.toLocaleString("vi-VN")}{" "}
-                <span className="text-sm text-neutral-500 font-normal">Giao dịch</span>
+                <span className="text-sm text-black font-normal">Giao dịch</span>
               </h3>
             </div>
-            <div className="p-3 rounded-xl bg-yellow-400/10 text-yellow-400">
+            <div className="p-3 rounded-xl bg-dura-5/10 text-dura-5">
               <Activity className="w-6 h-6" />
             </div>
           </div>
         </div>
-        <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6">
+        <div className="bg-white border border-dura-3 rounded-2xl p-6">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-neutral-400 text-sm font-medium">Tổng Coin đã nạp (Tháng)</p>
-              <h3 className="text-2xl font-bold text-white mt-2">
+              <p className="text-black text-sm font-medium">Tổng Coin đã nạp (Tháng)</p>
+              <h3 className="text-2xl font-bold text-black mt-2">
                 {summary.monthCoins.toLocaleString("vi-VN")}{" "}
-                <span className="text-sm text-neutral-500 font-normal">Coin</span>
+                <span className="text-sm text-black font-normal">Coin</span>
               </h3>
             </div>
             <div className="p-3 rounded-xl bg-purple-500/10 text-purple-400">
@@ -170,30 +170,30 @@ export default function AdminTransactionsPage() {
       </div>
 
       {/* Chart Section */}
-      <div className="bg-[#111] border border-neutral-800 rounded-2xl p-6">
+      <div className="bg-white border border-dura-3 rounded-2xl p-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
           <div>
-            <h2 className="text-lg font-bold text-white">Biểu đồ doanh thu nạp coin</h2>
-            <p className="text-neutral-400 text-sm">Thống kê doanh thu các giao dịch thành công.</p>
+            <h2 className="text-lg font-bold text-black">Biểu đồ doanh thu nạp coin</h2>
+            <p className="text-black text-sm">Thống kê doanh thu các giao dịch thành công.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2 bg-[#0a0a0a] border border-neutral-800 rounded-xl px-3 py-1.5">
-              <Calendar className="w-4 h-4 text-neutral-400" />
+            <div className="flex items-center gap-2 bg-white border border-dura-3 rounded-xl px-3 py-1.5">
+              <Calendar className="w-4 h-4 text-black" />
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="bg-transparent text-sm text-white focus:outline-none [&::-webkit-calendar-picker-indicator]:invert"
+                className="bg-transparent text-sm text-black focus:outline-none [&::-webkit-calendar-picker-indicator]:invert"
               />
             </div>
-            <span className="text-neutral-500">-</span>
-            <div className="flex items-center gap-2 bg-[#0a0a0a] border border-neutral-800 rounded-xl px-3 py-1.5">
-              <Calendar className="w-4 h-4 text-neutral-400" />
+            <span className="text-black">-</span>
+            <div className="flex items-center gap-2 bg-white border border-dura-3 rounded-xl px-3 py-1.5">
+              <Calendar className="w-4 h-4 text-black" />
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="bg-transparent text-sm text-white focus:outline-none [&::-webkit-calendar-picker-indicator]:invert"
+                className="bg-transparent text-sm text-black focus:outline-none [&::-webkit-calendar-picker-indicator]:invert"
               />
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function AdminTransactionsPage() {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-neutral-500">
+            <div className="w-full h-full flex items-center justify-center text-black">
               Không có dữ liệu trong khoảng thời gian này.
             </div>
           )}
@@ -232,20 +232,20 @@ export default function AdminTransactionsPage() {
       {/* Filters and Search */}
       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black" />
           <input
             type="text"
             placeholder="Mã giao dịch, tên người dùng, email..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="w-full bg-[#111] border border-neutral-800 text-white rounded-xl pl-10 pr-4 py-2.5 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/50 transition-all"
+            className="w-full bg-white border border-dura-3 text-black rounded-xl pl-10 pr-4 py-2.5 focus:outline-none focus:border-dura-5 focus:ring-1 focus:ring-dura-5/50 transition-all"
           />
         </div>
         <select
           value={method}
           onChange={(e) => setMethod(e.target.value)}
-          className="bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-yellow-400 appearance-none min-w-[150px]"
+          className="bg-white border border-dura-3 text-black px-4 py-2.5 rounded-xl focus:outline-none focus:border-dura-5 appearance-none min-w-[150px]"
         >
           <option value="all">Tất cả cổng thanh toán</option>
           <option value="bank">Chuyển khoản</option>
@@ -255,7 +255,7 @@ export default function AdminTransactionsPage() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-yellow-400 appearance-none min-w-[150px]"
+          className="bg-white border border-dura-3 text-black px-4 py-2.5 rounded-xl focus:outline-none focus:border-dura-5 appearance-none min-w-[150px]"
         >
           <option value="all">Tất cả trạng thái</option>
           <option value="completed">Thành công</option>
@@ -265,7 +265,7 @@ export default function AdminTransactionsPage() {
         </select>
         <button
           onClick={handleSearch}
-          className="flex items-center gap-2 bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl hover:bg-neutral-900 transition-colors"
+          className="flex items-center gap-2 bg-white border border-dura-3 text-black px-4 py-2.5 rounded-xl hover:bg-site transition-colors"
         >
           <Filter className="w-5 h-5" />
           Lọc
@@ -273,56 +273,56 @@ export default function AdminTransactionsPage() {
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-[#111] border border-neutral-800 rounded-2xl overflow-hidden">
+      <div className="bg-white border border-dura-3 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-neutral-900/50">
-                <th className="p-4 text-neutral-400 font-medium text-sm">Mã GD</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Người dùng</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Số tiền nạp</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Nhận (Coin)</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Cổng thanh toán</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Thời gian</th>
-                <th className="p-4 text-neutral-400 font-medium text-sm">Trạng thái</th>
+              <tr className="bg-site">
+                <th className="p-4 text-black font-medium text-sm">Mã GD</th>
+                <th className="p-4 text-black font-medium text-sm">Người dùng</th>
+                <th className="p-4 text-black font-medium text-sm">Số tiền nạp</th>
+                <th className="p-4 text-black font-medium text-sm">Nhận (Coin)</th>
+                <th className="p-4 text-black font-medium text-sm">Cổng thanh toán</th>
+                <th className="p-4 text-black font-medium text-sm">Thời gian</th>
+                <th className="p-4 text-black font-medium text-sm">Trạng thái</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-800">
+            <tbody className="divide-y divide-dura-3">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="p-10 text-center text-neutral-500">
+                  <td colSpan={7} className="p-10 text-center text-black">
                     <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2" />
                     Đang tải dữ liệu...
                   </td>
                 </tr>
               ) : transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="p-10 text-center text-neutral-500">
+                  <td colSpan={7} className="p-10 text-center text-black">
                     Không có giao dịch nào.
                   </td>
                 </tr>
               ) : (
                 transactions.map((trx) => (
-                  <tr key={trx.id} className="hover:bg-neutral-900/50 transition-colors">
-                    <td className="p-4 font-mono text-xs text-neutral-300 max-w-[120px] truncate" title={trx.id}>
+                  <tr key={trx.id} className="hover:bg-site transition-colors">
+                    <td className="p-4 font-mono text-xs text-black max-w-[120px] truncate" title={trx.id}>
                       {trx.id.slice(0, 12)}...
                     </td>
                     <td className="p-4">
-                      <div className="font-medium text-white">{trx.username}</div>
-                      <div className="text-xs text-neutral-500">{trx.email}</div>
+                      <div className="font-medium text-black">{trx.username}</div>
+                      <div className="text-xs text-black">{trx.email}</div>
                     </td>
-                    <td className="p-4 font-medium text-white">{formatMoney(trx.amountMoney)}</td>
-                    <td className="p-4 font-bold text-yellow-400">+{trx.amountXu.toLocaleString("vi-VN")}</td>
+                    <td className="p-4 font-medium text-black">{formatMoney(trx.amountMoney)}</td>
+                    <td className="p-4 font-bold text-dura-5">+{trx.amountXu.toLocaleString("vi-VN")}</td>
                     <td className="p-4">
-                      <span className="flex items-center gap-1.5 text-sm text-neutral-300">
-                        <CreditCard className="w-4 h-4 text-neutral-500" />
+                      <span className="flex items-center gap-1.5 text-sm text-black">
+                        <CreditCard className="w-4 h-4 text-black" />
                         {trx.paymentMethod}
                       </span>
                     </td>
-                    <td className="p-4 text-sm text-neutral-400">{formatDate(trx.createdAt)}</td>
+                    <td className="p-4 text-sm text-black">{formatDate(trx.createdAt)}</td>
                     <td className="p-4">
                       <span
-                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium w-max ${STATUS_STYLE[trx.status] ?? "bg-neutral-500/10 text-neutral-400"}`}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium w-max ${STATUS_STYLE[trx.status] ?? "bg-neutral-500/10 text-black"}`}
                       >
                         {trx.status === "COMPLETED" ? (
                           <CheckCircle2 className="w-3 h-3" />
@@ -340,7 +340,7 @@ export default function AdminTransactionsPage() {
         </div>
 
         {/* Pagination */}
-        <div className="p-4 border-t border-neutral-800 flex justify-between items-center text-sm text-neutral-400">
+        <div className="p-4 border-t border-dura-3 flex justify-between items-center text-sm text-black">
           <div>
             Hiển thị {total === 0 ? 0 : (page - 1) * limit + 1} -{" "}
             {Math.min(page * limit, total)} trong số {total.toLocaleString("vi-VN")} giao dịch
@@ -349,7 +349,7 @@ export default function AdminTransactionsPage() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="px-3 py-1.5 rounded-lg border border-neutral-800 hover:bg-neutral-800 transition-colors disabled:opacity-50"
+              className="px-3 py-1.5 rounded-lg border border-dura-3 hover:bg-slate-200 transition-colors disabled:opacity-50"
             >
               Trước
             </button>
@@ -359,8 +359,8 @@ export default function AdminTransactionsPage() {
                 <button
                   key={pageNum}
                   onClick={() => setPage(pageNum)}
-                  className={`px-3 py-1.5 rounded-lg border border-neutral-800 transition-colors ${
-                    pageNum === page ? "bg-neutral-800 text-white" : "hover:bg-neutral-800"
+                  className={`px-3 py-1.5 rounded-lg border border-dura-3 transition-colors ${
+                    pageNum === page ? "bg-dura-5 text-white" : "hover:bg-slate-200"
                   }`}
                 >
                   {pageNum}
@@ -370,7 +370,7 @@ export default function AdminTransactionsPage() {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page >= totalPages}
-              className="px-3 py-1.5 rounded-lg border border-neutral-800 hover:bg-neutral-800 transition-colors disabled:opacity-50"
+              className="px-3 py-1.5 rounded-lg border border-dura-3 hover:bg-slate-200 transition-colors disabled:opacity-50"
             >
               Tiếp
             </button>

@@ -56,10 +56,10 @@ export default function AdminLayout({
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white">
+      <div className="min-h-screen bg-site flex items-center justify-center text-black">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-gray-400">Đang kiểm tra quyền truy cập...</p>
+          <div className="w-8 h-8 border-4 border-dura-5 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-black">Đang kiểm tra quyền truy cập...</p>
         </div>
       </div>
     );
@@ -73,13 +73,13 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a] text-white font-sans">
+    <div className="flex min-h-screen bg-site text-black font-sans">
       {/* Sidebar for Desktop */}
-      <aside className="hidden md:flex w-64 flex-col bg-[#111] border-r border-neutral-800 fixed top-0 left-0 h-screen z-30">
-        <div className="h-16 flex items-center px-6 border-b border-neutral-800">
+      <aside className="hidden md:flex w-64 flex-col bg-white border-r border-dura-3 fixed top-0 left-0 h-screen z-30">
+        <div className="h-16 flex items-center px-6 border-b border-dura-3">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold text-yellow-400">Cây Tre Đam Mỹ</span>
-            <span className="text-xs bg-yellow-400/20 text-yellow-400 px-2 py-0.5 rounded-full">Admin</span>
+            <span className="text-xl font-bold text-dura-5">Cây Tre Đam Mỹ</span>
+            <span className="text-xs bg-dura-2 text-dura-5 px-2 py-0.5 rounded-full">Admin</span>
           </Link>
         </div>
 
@@ -92,21 +92,21 @@ export default function AdminLayout({
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                   isActive
-                    ? "bg-yellow-400 text-black shadow-lg shadow-yellow-400/20 font-medium"
-                    : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                    ? "bg-dura-5 text-white shadow-md shadow-dura-5/20 font-medium"
+                    : "text-black hover:bg-site"
                 }`}
               >
-                <item.icon className={`w-5 h-5 ${isActive ? "text-black" : "text-neutral-400"}`} />
+                <item.icon className={`w-5 h-5 ${isActive ? "text-white" : "text-black"}`} />
                 {item.name}
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-neutral-800">
+        <div className="p-4 border-t border-dura-3">
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-neutral-400 hover:text-red-400 hover:bg-red-400/10 transition-all duration-200"
+            className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-black hover:text-red-500 hover:bg-red-50 transition-all duration-200"
           >
             <LogOut className="w-5 h-5" />
             Đăng xuất
@@ -116,13 +116,13 @@ export default function AdminLayout({
 
       {/* Mobile Header & Content */}
       <div className="flex-1 flex flex-col min-w-0 md:ml-64">
-        <header className="md:hidden h-16 flex items-center justify-between px-4 border-b border-neutral-800 bg-[#111]">
-          <Link href="/admin" className="text-xl font-bold text-yellow-400">
+        <header className="md:hidden h-16 flex items-center justify-between px-4 border-b border-dura-3 bg-white">
+          <Link href="/admin" className="text-xl font-bold text-dura-5">
             Cây Tre Đam Mỹ Admin
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-lg bg-neutral-800 text-white"
+            className="p-2 rounded-lg bg-site text-black"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -130,7 +130,7 @@ export default function AdminLayout({
 
         {/* Mobile Navigation Dropdown */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden absolute top-16 left-0 right-0 bg-[#111] border-b border-neutral-800 z-50 px-4 py-4 space-y-2">
+          <nav className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-dura-3 z-50 px-4 py-4 space-y-2 shadow-lg">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -140,11 +140,11 @@ export default function AdminLayout({
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     isActive
-                      ? "bg-yellow-400 text-black font-medium"
-                      : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                      ? "bg-dura-5 text-white font-medium"
+                      : "text-black hover:bg-site"
                   }`}
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon className={`w-5 h-5 ${isActive ? "text-white" : "text-black"}`} />
                   {item.name}
                 </Link>
               );
@@ -152,7 +152,7 @@ export default function AdminLayout({
           </nav>
         )}
 
-        <main className="flex-1 bg-[#0a0a0a] p-4 md:p-8 custom-scrollbar">
+        <main className="flex-1 bg-site p-4 md:p-8 custom-scrollbar">
           {children}
         </main>
       </div>
