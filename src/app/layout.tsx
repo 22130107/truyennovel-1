@@ -61,8 +61,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: SITE_NAME,
+  },
   // Thêm verification khi có Google Search Console:
   // verification: { google: "your-verification-code" },
+};
+
+import type { Viewport } from 'next';
+export const viewport: Viewport = {
+  themeColor: '#F4E8DA',
 };
 
 export default function RootLayout({
