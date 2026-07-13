@@ -17,7 +17,7 @@ export function InAppBrowserWarning() {
     const isMessenger = ua.indexOf("messenger") > -1 || ua.indexOf("fb_iab") > -1;
     const isTikTok = ua.indexOf("tiktok") > -1;
     
-    if (isFB || isZalo || isInsta || isMessenger || isTikTok) {
+    if (isFB || isZalo || isInsta || isMessenger || isTikTok || window.location.search.includes("debug=true")) {
       setShow(true);
     }
 
@@ -58,8 +58,8 @@ export function InAppBrowserWarning() {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[100000] bg-slate-900 w-full px-4 py-3 flex flex-col items-center justify-center border-b border-white/10 shadow-2xl">
-      <p className="text-slate-200 text-sm text-center max-w-2xl leading-relaxed">
+    <div className="fixed top-0 left-0 right-0 z-[100000] bg-site w-full px-4 py-3 flex flex-col items-center justify-center border-b border-dura-3 shadow-md">
+      <p className="text-black text-sm text-center max-w-2xl leading-relaxed">
         Cây Tre Đam Mỹ sẽ hoạt động tốt nhất khi được mở bằng trình duyệt trên thiết bị của bạn. Hãy nhấn nút bên dưới để tiếp tục.
       </p>
       
@@ -67,7 +67,7 @@ export function InAppBrowserWarning() {
         <button 
           type="button"
           onClick={() => setShow(false)}
-          className="py-1.5 px-8 rounded-lg border border-white/20 text-slate-200 text-sm font-medium hover:bg-white/5 transition-colors"
+          className="py-1.5 px-8 rounded-lg border border-dura-5 text-dura-5 text-sm font-medium hover:bg-dura-2 transition-colors"
         >
           Đóng
         </button>
@@ -76,7 +76,7 @@ export function InAppBrowserWarning() {
           href={linkRef}
           target="_blank"
           onClick={handleFallback}
-          className="py-1.5 px-8 rounded-lg bg-pink-400 text-white text-sm font-medium hover:bg-pink-500 transition-colors shadow-sm inline-block"
+          className="py-1.5 px-8 rounded-lg bg-dura-5 text-white text-sm font-medium hover:bg-dura-4 transition-colors shadow-sm inline-block"
         >
           Mở trình duyệt
         </a>
