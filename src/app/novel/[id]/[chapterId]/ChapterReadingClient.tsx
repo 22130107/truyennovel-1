@@ -95,10 +95,11 @@ export default function ChapterReadingClient() {
     if (!chapter || (chapter.isLocked && !chapter.isPurchased)) return;
     const userId = getUserId();
     if (!userId) return;
+    const autoStatus = chapter.nextChapter === null ? "COMPLETED" : "READING";
     fetch("/api/library/progress", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, novelId, lastChapter: chapter.chapterNumber, status: "READING" }),
+      body: JSON.stringify({ userId, novelId, lastChapter: chapter.chapterNumber, status: autoStatus }),
     }).catch(() => {});
   }, [chapter]);
 
