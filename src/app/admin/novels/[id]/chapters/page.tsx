@@ -108,13 +108,22 @@ export default function AdminChaptersPage() {
             </p>
           </div>
         </div>
-        <Link 
-          href={`/admin/novels/${novelId}/chapters/new`}
-          className="flex items-center gap-2 bg-dura-5 hover:bg-dura-4 text-white px-4 py-2.5 rounded-xl font-medium transition-colors"
-        >
-          <Plus className="w-5 h-5" />
-          Thêm chương mới
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link 
+            href={`/admin/novels/${novelId}/chapters/new`}
+            className="flex items-center gap-2 bg-white border border-dura-3 text-black px-4 py-2.5 rounded-xl font-medium hover:bg-site transition-colors text-sm"
+          >
+            <Plus className="w-5 h-5" />
+            Nhập hàng loạt từ Word
+          </Link>
+          <Link 
+            href={`/admin/novels/${novelId}/chapters/new`}
+            className="flex items-center gap-2 bg-dura-5 hover:bg-dura-4 text-white px-4 py-2.5 rounded-xl font-medium transition-colors"
+          >
+            <Plus className="w-5 h-5" />
+            Thêm chương mới
+          </Link>
+        </div>
       </div>
 
       {/* Filters and Search */}

@@ -57,6 +57,13 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     if (!novelId) return NextResponse.json({ message: 'Missing Novel ID' }, { status: 400 });
 
     const body = await req.json();
+
+    // Batch create chapters
+    if (body.chapters && Array.isArray(body.chapters)) {
+      return await batchCreateChapters(novelId, body.chapters);
+    }
+
+    // Single chapter create
     const { title, content, chapterNumber, isLocked, price } = body;
 
     if (!content || chapterNumber === undefined) {
@@ -64,7 +71,6 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     }
 
     const id = crypto.randomUUID();
-
     const finalTitle = title?.trim() || "";
 
     const connection = await pool.getConnection();
@@ -76,7 +82,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       );
 
       connection.release();
-      return NextResponse.json({ message: 'Thêm chương thành công.' }, { status: 201 });
+      return NextResponse.json({ message: 'Thêm chương thành công.', id }, { status: 201 });
     } catch (err: any) {
       connection.release();
       if (err.code === 'ER_DUP_ENTRY') {
@@ -87,5 +93,46 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
   } catch (error: any) {
     console.error('Create Chapter Error:', error);
     return NextResponse.json({ message: 'Đã xảy ra lỗi hệ thống: ' + error.message }, { status: 500 });
+  }
+}
+
+async function batchCreateChapters(novelId: string, chapters: any[]) {
+  if (chapters.length === 0) {
+    return NextResponse.json({ message: 'Danh sách chương rỗng.' }, { status: 400 });
+  }
+
+  for (const ch of chapters) {
+    if (!ch.content || ch.chapterNumber === undefined) {
+      return NextResponse.json({ message: `Chương ${ch.chapterNumber ?? '?'} thiếu nội dung hoặc số chương.` }, { status: 400 });
+    }
+  }
+
+  const connection = await pool.getConnection();
+  try {
+    const inserted: { chapterNumber: number; title: string }[] = [];
+    for (const ch of chapters) {
+      const id = crypto.randomUUID();
+      const finalTitle = ch.title?.trim() || "";
+      await connection.query(
+        `INSERT INTO chapter (id, novelId, title, content, chapterNumber, isLocked, price, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`,
+        [id, novelId, finalTitle, ch.content, ch.chapterNumber, ch.isLocked ? 1 : 0, ch.price || 0]
+      );
+      inserted.push({ chapterNumber: ch.chapterNumber, title: finalTitle });
+    }
+
+    connection.release();
+    return NextResponse.json({
+      message: `Đã thêm thành công ${inserted.length} chương.`,
+      count: inserted.length,
+      chapters: inserted
+    }, { status: 201 });
+  } catch (err: any) {
+    connection.release();
+    if (err.code === 'ER_DUP_ENTRY') {
+      return NextResponse.json({ message: 'Một trong các số chương đã tồn tại cho truyện này.' }, { status: 400 });
+    }
+    console.error('Batch Create Chapters Error:', err);
+    return NextResponse.json({ message: 'Đã xảy ra lỗi hệ thống: ' + err.message }, { status: 500 });
   }
 }
