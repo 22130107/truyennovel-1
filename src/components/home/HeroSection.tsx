@@ -124,7 +124,7 @@ export function HeroSection() {
 
               {/* Description — 2 dòng rồi ... */}
               <p 
-                className="text-white text-sm leading-relaxed mb-5 hidden md:block overflow-hidden" 
+                className="text-white text-sm leading-relaxed mb-5 hidden md:block overflow-hidden border-l-2 border-white/50 pl-3" 
                 style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', textShadow: "0 1px 3px rgba(0,0,0,0.6)"}}
               >
                 {current.description?.split('\n')[0] || ''}
@@ -133,7 +133,7 @@ export function HeroSection() {
               {/* CTA */}
               <Link
                 href={`/novel/${current.slug || current.id}`}
-                className="inline-block font-semibold border-pink border-[2px] py-2 px-6 rounded-full hover:bg-pink hover:text-white transition-colors text-sm md:text-base"
+                className="inline-block font-semibold border-pink border-[2px] py-2 px-6 rounded-full text-black hover:bg-pink hover:text-white transition-colors text-sm md:text-base"
               >
                 ĐỌC NGAY
               </Link>
