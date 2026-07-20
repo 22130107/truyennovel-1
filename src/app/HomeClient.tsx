@@ -73,7 +73,7 @@ export default function HomeClient() {
                 {l1
                   ? Array.from({ length: 5 }).map((_, i) => <CardSkeleton key={i} />)
                   : bookmarked.map((novel) => (
-                      <div key={novel.id} className="h-full relative w-[45vw] md:w-[339.4px] mr-[12px] md:mr-[20px] shrink-0">
+                      <div key={novel.id} className="relative w-[45vw] md:w-[339.4px] mr-[12px] md:mr-[20px] shrink-0">
                         <StoryCard
                           href={`/novel/${novel.slug || novel.id}`}
                           imageUrl={novel.coverUrl}
@@ -100,7 +100,7 @@ export default function HomeClient() {
                 {l2
                   ? Array.from({ length: 5 }).map((_, i) => <CardSkeleton key={i} />)
                   : topViewed.map((novel, index) => (
-                      <div key={novel.id} className="h-full relative w-[45vw] md:w-[339.4px] mr-[12px] md:mr-[20px] shrink-0">
+                      <div key={novel.id} className="relative w-[45vw] md:w-[339.4px] mr-[12px] md:mr-[20px] shrink-0">
                         <RankedStoryCard
                           href={`/novel/${novel.slug || novel.id}`}
                           imageUrl={novel.coverUrl}

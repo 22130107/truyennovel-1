@@ -97,9 +97,11 @@ export function HeroSection() {
                 <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded shadow-sm ${
                   current.status === "COMPLETED"
                     ? "bg-green-500 text-white border border-green-600"
+                    : current.status === "PAUSED"
+                    ? "bg-red-500 text-white border border-red-600"
                     : "bg-yellow-500 text-white border border-yellow-600"
                 }`}>
-                  {current.status === "COMPLETED" ? "Đã hoàn" : "Đang ra"}
+                  {current.status === "COMPLETED" ? "Hoàn thành" : current.status === "PAUSED" ? "Tạm dừng" : "Đang ra"}
                 </span>
                 <span className="text-xs text-black">{current.chapterCount} chương</span>
               </div>
@@ -107,7 +109,6 @@ export function HeroSection() {
               {/* Title */}
               <h1 
                 className="font-bold text-[24px] md:text-[38px] leading-tight mb-3 line-clamp-2"
-                style={{ textShadow: "0 0 10px var(--color-site), 0 0 20px var(--color-site), 0 0 30px var(--color-site), 0 0 40px var(--color-site)" }}
               >
                 {current.title}
               </h1>
@@ -115,7 +116,6 @@ export function HeroSection() {
               {/* Author */}
               <p 
                 className="text-sm text-black mb-3"
-                style={{ textShadow: "0 0 8px var(--color-site), 0 0 16px var(--color-site)" }}
               >
                 Tác giả: <span className="text-black font-medium">{current.author}</span>
               </p>
@@ -123,9 +123,9 @@ export function HeroSection() {
               {/* Description — 2 dòng rồi ... */}
               <p 
                 className="text-black text-sm leading-relaxed mb-5 hidden md:block overflow-hidden" 
-                style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', textShadow: "0 0 8px var(--color-site), 0 0 16px var(--color-site)"}}
+                style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}
               >
-                {current.description}
+                {current.description?.split('\n')[0] || ''}
               </p>
 
               {/* CTA */}
