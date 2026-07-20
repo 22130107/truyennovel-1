@@ -90,7 +90,7 @@ export function HeroSection() {
 
           {/* Content */}
           <div className="items-end flex h-full justify-start relative pt-20 px-4 md:px-16 pb-12 md:pb-8 z-30">
-            <div className="text-left text-black max-w-sm transition-all duration-500">
+            <div className="text-left text-white max-w-sm transition-all duration-500">
 
               {/* Status badge */}
               <div className="flex items-center gap-2 mb-3">
@@ -103,27 +103,29 @@ export function HeroSection() {
                 }`}>
                   {current.status === "COMPLETED" ? "Hoàn thành" : current.status === "PAUSED" ? "Tạm dừng" : "Đang ra"}
                 </span>
-                <span className="text-xs text-black">{current.chapterCount} chương</span>
+                <span className="text-xs text-white">{current.chapterCount} chương</span>
               </div>
 
               {/* Title */}
               <h1 
-                className="font-bold text-[24px] md:text-[38px] leading-tight mb-3 line-clamp-2"
+                className="font-bold text-white text-[24px] md:text-[38px] leading-tight mb-3 line-clamp-2"
+                style={{ textShadow: "0 1px 3px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4)" }}
               >
                 {current.title}
               </h1>
 
               {/* Author */}
               <p 
-                className="text-sm text-black mb-3"
+                className="text-sm text-white mb-3"
+                style={{ textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
               >
-                Tác giả: <span className="text-black font-medium">{current.author}</span>
+                Tác giả: <span className="text-white font-medium">{current.author}</span>
               </p>
 
               {/* Description — 2 dòng rồi ... */}
               <p 
-                className="text-black text-sm leading-relaxed mb-5 hidden md:block overflow-hidden" 
-                style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}
+                className="text-white text-sm leading-relaxed mb-5 hidden md:block overflow-hidden" 
+                style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', textShadow: "0 1px 3px rgba(0,0,0,0.6)"}}
               >
                 {current.description?.split('\n')[0] || ''}
               </p>
