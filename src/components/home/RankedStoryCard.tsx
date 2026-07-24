@@ -32,7 +32,7 @@ export function RankedStoryCard({
     <Link href={href} className="w-full">
       <div className="group flex flex-col w-full" style={{"clipPath": clipPathStyle, filter: "drop-shadow(2px 0 0 var(--color-pink)) drop-shadow(0 2px 0 var(--color-pink)) drop-shadow(-2px 0 0 var(--color-pink)) drop-shadow(0 -2px 0 var(--color-pink))"}}>
         <div className="overflow-hidden relative w-full aspect-[2_/_3] shrink-[0]">
-          <img alt={title} src={imageUrl} className="block size-full max-w-full object-cover overflow-clip absolute align-middle left-0 top-0 right-0 bottom-0 text-black/0 group-hover:scale-110 transition-transform duration-300" />
+          <img alt={title} src={imageUrl} className="block size-full max-w-full object-cover object-top overflow-clip absolute align-middle left-0 top-0 right-0 bottom-0 text-black/0 group-hover:scale-110 transition-transform duration-300" />
           <div className="absolute left-0 top-0 right-0 bottom-0 bg-black/40 opacity-[0]"></div>
         </div>
         <div className="items-start flex bg-black/80 backdrop-blur-md p-2 min-h-[100px]" style={{ color: "var(--color-dura-1)" }}>

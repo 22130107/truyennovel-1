@@ -173,7 +173,7 @@ function BrowseContent() {
                   <img
                     src={novel.coverUrl || "/logo.png"}
                     alt={`Ảnh bìa truyện ${novel.title}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-2 right-2 bg-site/70 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[rgb(122,213,195)] border border-white/10 uppercase tracking-wider">
                     {statusLabel(novel.status)}

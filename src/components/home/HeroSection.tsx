@@ -70,7 +70,7 @@ export function HeroSection() {
                 {img && (
                   <img
                     src={img}
-                    className="block size-full max-w-full object-cover absolute inset-0"
+                    className="block size-full max-w-full object-cover object-top absolute inset-0"
                     alt={novel.title}
                   />
                 )}
