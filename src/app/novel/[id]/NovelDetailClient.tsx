@@ -49,6 +49,14 @@ export default function NovelDetailClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [reviews, setReviews] = useState<{ username: string; score: number; comment: string; createdAt: string }[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const fetchReviews = () => {
     if (!id) return;
@@ -124,7 +132,7 @@ export default function NovelDetailClient() {
             {loading ? (
               <div className="w-full h-[300px] bg-gray-200 animate-pulse" />
             ) : (
-              <DetailHeroBackground imageUrl={novel?.posterUrl || novel?.coverUrl || ""} />
+              <DetailHeroBackground imageUrl={isMobile ? (novel?.coverUrl || novel?.posterUrl || "") : (novel?.posterUrl || novel?.coverUrl || "")} />
             )}
 
             {error ? (

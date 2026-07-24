@@ -18,6 +18,14 @@ interface HeroNovel {
 export function HeroSection() {
   const [novels, setNovels] = useState<HeroNovel[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     fetch("/api/novels/top-viewed")
@@ -43,8 +51,6 @@ export function HeroSection() {
   }
 
   const current = novels[currentIndex];
-  // Ưu tiên posterUrl, fallback về coverUrl
-  const bgImage = current.posterUrl || current.coverUrl || "";
 
   return (
     <section className="items-center justify-center">
@@ -53,7 +59,7 @@ export function HeroSection() {
 
           {/* Background Images */}
           {novels.map((novel, index) => {
-            const img = novel.posterUrl || novel.coverUrl || "";
+            const img = isMobile ? (novel.coverUrl || novel.posterUrl || "") : (novel.posterUrl || novel.coverUrl || "");
             return (
               <div
                 key={novel.id}
